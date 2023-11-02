@@ -3,13 +3,13 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Light Logo-->
-        <a href="#" target="_blank" class="logo logo-light">
-            <h4 class="logo-sm text-white mt-4">
+        <a href="#" target="_blank" class="logo">
+            <h4 class="logo-sm text-black mt-4">
                 <span>
                     Blog Post
                 </span>
             </h4>
-            <h4 class="logo-lg text-white mt-4">
+            <h4 class="logo-lg text-black mt-4">
                 <span>
                     Blog Post
                 </span>

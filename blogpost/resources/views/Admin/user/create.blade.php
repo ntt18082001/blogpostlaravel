@@ -1,5 +1,5 @@
 <x-admin.admin-layout title="Create account">
-    <form action="{{ route('admin.user.create_post') }}" method="post" autocomplete="off" enctype="multipart/form-data">
+    <form action="{{ route('admin.user.save') }}" method="post" autocomplete="off" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">
@@ -21,7 +21,7 @@
                             <img class="image-review" />
                         </div>
                     </div>
-                    @error('img_path')
+                    @error('avatar')
                     <span class="text-danger">
                             {{ $message }}
                         </span>

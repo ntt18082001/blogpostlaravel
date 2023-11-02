@@ -31,9 +31,10 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
     Route::prefix('/user')->name(".user.")->group(function() {
         $controller = "UserController";
         Route::get("/create", "$controller@create")->name("create");
-        Route::post("/create_post", "$controller@save")->name("create_post");
+        Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get("/index", "$controller@index")->name("index");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
+        Route::get('/edit/{id}', "$controller@edit")->name('edit');
     });
 });
 
