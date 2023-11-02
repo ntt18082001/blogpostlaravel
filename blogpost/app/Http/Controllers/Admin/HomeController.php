@@ -11,14 +11,12 @@ class HomeController extends Controller
     function index() {
         if(Auth::check()) {
             $user = Auth::user();
-            if($user->role_id == 1 || $user->role_id == 2) {
-                return redirect()->route('Admin.home.index');
+            if($user->role_id == 1) {
+                return view('Admin.index');
             }
-            if($user->role_id == 3) {
-                return redirect("/");
-            }
+            return redirect("/");
         } else {
-            return redirect()->route("Admin.account.login");
+            return redirect()->route("admin.account.login");
         }
     }
 }

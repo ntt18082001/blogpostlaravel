@@ -21,7 +21,7 @@ class AccountController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('client.home');
+        return redirect()->route('admin.account.login');
     }
     function auth(Request $request)
     {

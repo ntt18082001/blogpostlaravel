@@ -23,9 +23,9 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/sms.css') }}" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="{{ asset('css/preview_img.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {{ $header ?? '' }}
 </head>
 <body>
@@ -40,6 +40,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="h3">{{ $title }}</h3>
+                        @include('Admin.includes.alertMessage')
                     </div>
                     <div class="card-body">
                         {{ $slot }}
@@ -67,7 +68,7 @@
 <script src="{{ asset('assets/js/plugins.js') }}"></script>
 <!-- App js -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
-<script src="{{ asset('js/admin/navbar/index.js') }}"></script>
+<script src="{{ asset('js/active_navbar.js') }}"></script>
 {{ $script ?? '' }}
 </body>
 </html>

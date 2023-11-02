@@ -27,12 +27,12 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{ route('admin.home.index') }}">
                         <i class="mdi mdi-open-in-new"></i> <span data-key="t-widgets">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{ route('admin.user.index') }}">
                         <i class="mdi mdi-account"></i> <span data-key="t-widgets">Accounts</span>
                     </a>
                 </li>

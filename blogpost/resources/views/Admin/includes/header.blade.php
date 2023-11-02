@@ -42,17 +42,17 @@
 							<img class="rounded-circle header-profile-user"
                                  src="{{ asset('assets/images/users/user-dummy-img.jpg') }}" alt="Header Avatar">
 							<span class="text-start ms-xl-2">
-{{--								<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">--}}
-{{--									@php--}}
-{{--                                        $name = "";--}}
-{{--                                        if(\Illuminate\Support\Facades\Auth::check()) {--}}
-{{--                                            $name = \Illuminate\Support\Facades\Auth::user()->full_name;--}}
-{{--                                        }--}}
-{{--                                    @endphp--}}
-{{--                                    @if(isset($name))--}}
-{{--                                        {{$name}}--}}
-{{--                                    @endif--}}
-{{--								</span>--}}
+								<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+									@php
+                                        $name = "";
+                                        if(\Illuminate\Support\Facades\Auth::check()) {
+                                            $name = \Illuminate\Support\Facades\Auth::user()->full_name;
+                                        }
+                                    @endphp
+                                    @if(isset($name))
+                                        {{$name}}
+                                    @endif
+								</span>
 							</span>
 						</span>
                     </button>
@@ -64,7 +64,7 @@
                         <a class="dropdown-item" href="#">
                             <i class="mdi mdi-key text-muted fs-16 align-middle me-1"></i><span>Change password</span>
                         </a>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('admin.account.logout') }}">
                             <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span>
                         </a>
                     </div>

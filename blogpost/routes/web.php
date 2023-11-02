@@ -22,10 +22,18 @@ Route::prefix('/admin')->namespace("App\Http\Controllers\Admin")->name("admin")-
     });
 });
 
-Route::prefix("/admin")->middleware('auth')->namespace("App\Http\Controllers\Admin")->name("admin")->group(function() {
+Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Admin")->name("admin")->group(function() {
     Route::name(".home.")->group(function() {
         $controller = "HomeController";
         Route::get("/", "$controller@index")->name("index");
+    });
+
+    Route::prefix('/user')->name(".user.")->group(function() {
+        $controller = "UserController";
+        Route::get("/create", "$controller@create")->name("create");
+        Route::post("/create_post", "$controller@save")->name("create_post");
+        Route::get("/index", "$controller@index")->name("index");
+        Route::get('/delete/{id}', "$controller@delete")->name("delete");
     });
 });
 
