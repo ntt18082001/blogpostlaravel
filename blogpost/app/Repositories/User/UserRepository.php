@@ -17,4 +17,19 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->select('id', 'full_name', 'username', 'role_id', 'email')
                 ->orderByDesc('id')->where('id', '!=', $id);
     }
+    public function searchUsers($username, $email)
+    {
+        $query = $this->model->query()->select('id', 'full_name', 'username', 'role_id', 'email')->orderByDesc('id');
+        if($username) {
+            $query->where('username', 'like', "%$username%");
+        }
+        if($email) {
+            $query->where('email', 'like', "%$email%");
+        }
+        return $query;
+    }
+    public function countUser()
+    {
+        return $this->model->count();
+    }
 }
