@@ -36,19 +36,27 @@
 
             <div class="d-flex align-items-center">
                 <div class="dropdown ms-sm-3 header-item topbar-user">
+                    @php
+                        $name = "";
+                        $avatar = "";
+                        if(\Illuminate\Support\Facades\Auth::check()) {
+                            $user = \Illuminate\Support\Facades\Auth::user();
+                            $name = $user->full_name;
+                            $avatar = $user->avatar;
+                        }
+                    @endphp
                     <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<span class="d-flex align-items-center">
-							<img class="rounded-circle header-profile-user"
-                                 src="{{ asset('assets/images/users/user-dummy-img.jpg') }}" alt="Header Avatar">
+                            @if(isset($avatar))
+                                <img class="rounded-circle header-profile-user"
+                                     src="/storage/avatar/{{$avatar}}" alt="Header Avatar">
+                            @else
+                                <img class="rounded-circle header-profile-user"
+                                     src="{{ asset('assets/images/users/user-dummy-img.jpg') }}" alt="Header Avatar">
+                            @endif
 							<span class="text-start ms-xl-2">
 								<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-									@php
-                                        $name = "";
-                                        if(\Illuminate\Support\Facades\Auth::check()) {
-                                            $name = \Illuminate\Support\Facades\Auth::user()->full_name;
-                                        }
-                                    @endphp
                                     @if(isset($name))
                                         {{$name}}
                                     @endif
