@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{ route('admin.category.index') }}">
                         <i class="mdi mdi-format-list-bulleted"></i> <span data-key="t-widgets">Categories</span>
                     </a>
                 </li>

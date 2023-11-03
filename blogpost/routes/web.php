@@ -36,8 +36,16 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
         Route::get('/edit/{id}', "$controller@edit")->name('edit');
     });
-});
 
+    Route::prefix('/category')->name('.category.')->group(function() {
+        $controller = "CategoryController";
+        Route::get('/index', "$controller@index")->name('index');
+        Route::get("/create", "$controller@create")->name("create");
+        Route::post("/save/{id?}", "$controller@save")->name("save");
+        Route::get('/delete/{id}', "$controller@delete")->name("delete");
+        Route::get('/edit/{id}', "$controller@edit")->name('edit');
+    });
+});
 
 Route::get('/', function () {
     return view('welcome');
