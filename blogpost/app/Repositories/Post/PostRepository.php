@@ -10,6 +10,14 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     {
         return \App\Models\Post::class;
     }
+    /**
+     * Search post
+     * @param $title
+     * @param $status
+     * @param $category_id
+     * @param $author_id
+     * @return mixed
+     */
     public function searchPost($title, $status, $category_id, $author_id)
     {
         $query = $this->model->query()->select('id', 'title', 'status', 'category_id', 'author_id')->orderByDesc('id');

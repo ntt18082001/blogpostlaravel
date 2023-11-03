@@ -5,12 +5,13 @@
 
     $_value = $attributes['value'] ?? '';
     $_value = empty($_old_value) ? $_value : $_old_value;
+    $_isrequired = isset($attributes['required']) ? "required" : '';
 @endphp
 
 <div class="form-group mt-3 ">
-    <label for="{{ $_name }}" class="form-label">{{ $_label }}</label>
+    <label for="{{ $_name }}" class="form-label {{$_isrequired}}">{{ $_label }}</label>
 
-    <select id="{{ $_name }}" name="{{ $_name }}" class="form-select @error($_name) is-invalid @enderror">
+    <select id="{{ $_name }}" name="{{ $_name }}" class="form-select @error($_name) is-invalid @enderror" {{$_isrequired}}>
         <option value="">-- Choose a value --</option>
         @foreach ($data as $item)
             @if ($_value == $item->id)

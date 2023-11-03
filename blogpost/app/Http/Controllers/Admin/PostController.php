@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Post\PostRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
     protected $postRepo;
     protected $cateRepo;
@@ -27,5 +30,51 @@ class PostController extends Controller
         }
         $result = $this->postRepo->getAllWith(['id', 'title', 'cover_path', 'status', 'category_id', 'author_id'])->paginate();
         return view('Admin.post.index')->with('data', $result);
+    }
+    function create() {
+        return view('Admin.post.create');
+    }
+    function save(Request $request, $id = null) {
+        $data = $request->all();
+        $data['status'] = isset($data['status']) ?? false;
+        $data['author_id'] = Auth::id();
+        $this->customValidate($data, $id);
+
+        $file = $request->file('cover_path');
+        if($file != null) {
+            $file_name = $file->hashName();
+            $file->storeAs('/public/post', $file_name);
+            $data['cover_path'] = $file_name;
+        }
+
+        try {
+            $this->postRepo->updateOrCreate($data, $id);
+            return redirect()->route('admin.post.index')->with('success-msg', "Post created!");
+        } catch (\ErrorException $exception) {
+            return redirect()->route('admin.post.index')->with('error-msg', self::ERROR_MSG);
+        }
+    }
+    private function customValidate($data, $id = null) {
+        $rules = [
+            "title" => ['required'],
+            "content" => ['required'],
+            "summary" => ['required'],
+            'author_id' => ['required'],
+            'category_id' => ['required']
+        ];
+        $fields = [
+            'title' => 'Title',
+            'content' => "Content",
+            'summary' => "Summary",
+            "author_id" => "Author",
+            "category_id" => "Category"
+        ];
+        if($id == null) {
+            $rules["cover_path"] = ["required"];
+            $fields["cover_path"] = "Cover Image";
+        }
+        unset($data["_token"]);
+        $validator = Validator::make($data, $rules, [], $fields);
+        $validator->validate();
     }
 }

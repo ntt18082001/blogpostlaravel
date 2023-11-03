@@ -14,7 +14,7 @@
             <div class="col-md-6">
                 <div class="form-group group-container">
                     <label class="control-label required">Avatar</label>
-                    <input name="avatar" id="img_path" type="file" class="form-control fake-d-none"  accept="image/*">
+                    <input name="avatar" id="img_path" type="file" class="form-control fake-d-none" accept="image/*">
                     <div class="position-relative d-flex justify-content-center">
                         <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute" >
                         <div class="selectedImages">

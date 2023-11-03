@@ -2,7 +2,7 @@
     <div class="d-flex">
         <a href="{{ route('admin.post.create') }}" class="btn btn-primary mb-3 me-3">
             <i class="mdi mdi-account-plus"></i>
-            Create account
+            Create post
         </a>
         <p>
             <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -81,7 +81,7 @@
                 <tr>
                     <td class="fit">{{ $item->id }}</td>
                     <td class="fit text-center">
-                        <img class="header-profile-user avatar-md" src="/storage/avatar/{{$item->cover_path}}" alt="Header Avatar">
+                        <img class="header-profile-user avatar-md" src="/storage/post/{{$item->cover_path}}" alt="Header Avatar">
                     </td>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->category->cate_name }}</td>
