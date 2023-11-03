@@ -49,7 +49,12 @@ class PostController extends BaseController
 
         try {
             $this->postRepo->updateOrCreate($data, $id);
-            return redirect()->route('admin.post.index')->with('success-msg', "Post created!");
+            if($id == null) {
+                $msg = "Post created!";
+            } else {
+                $msg = "Post updated!";
+            }
+            return redirect()->route('admin.post.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
             return redirect()->route('admin.post.index')->with('error-msg', self::ERROR_MSG);
         }
@@ -57,7 +62,6 @@ class PostController extends BaseController
     private function customValidate($data, $id = null) {
         $rules = [
             "title" => ['required'],
-            "content" => ['required'],
             "summary" => ['required'],
             'author_id' => ['required'],
             'category_id' => ['required']
@@ -72,6 +76,7 @@ class PostController extends BaseController
         if($id == null) {
             $rules["cover_path"] = ["required"];
             $fields["cover_path"] = "Cover Image";
+            $rules["content"] = ['required'];
         }
         unset($data["_token"]);
         $validator = Validator::make($data, $rules, [], $fields);
@@ -91,5 +96,12 @@ class PostController extends BaseController
             return redirect()->back()->with('error-msg', 'Post not found!');
         }
         return view('Admin.post.detail')->with('data', $data);
+    }
+    function edit($id) {
+        $data = $this->postRepo->find($id);
+        if($data == null) {
+            return redirect()->back()->with('error-msg', 'Post not found!');
+        }
+        return view('Admin.post.edit')->with('data', $data);
     }
 }

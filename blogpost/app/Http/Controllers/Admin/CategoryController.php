@@ -31,7 +31,12 @@ class CategoryController extends BaseController
         $this->customValidate($data);
         try {
             $this->cateRepo->updateOrCreate($data, $id);
-            return redirect()->route('admin.category.index')->with('success-msg', "Category created!");
+            if($id == null) {
+                $msg = "Category created!";
+            } else {
+                $msg = "Category updated!";
+            }
+            return redirect()->route('admin.category.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
             return redirect()->route('admin.category.index')->with('error-msg', self::ERROR_MSG);
         }
