@@ -11,11 +11,15 @@
             </a>
         </p>
     </div>
-    <div class="collapse" id="collapseExample">
-        @php
-            $username = app('request')->input('username');
-            $email = app('request')->input('email');
-        @endphp
+    @php
+        $username = app('request')->input('username');
+        $email = app('request')->input('email');
+        $show = '';
+        if(isset($username) || isset($email)) {
+            $show = 'show';
+        }
+    @endphp
+    <div class="collapse {{$show}}" id="collapseExample">
         <div class="mb-4" id="Search">
             <div class="card mb-0">
                 <div class="card-header">
@@ -50,7 +54,7 @@
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
-                <th scope="col">Status</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
