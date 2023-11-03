@@ -46,7 +46,12 @@ class UserController extends BaseController
 
         try {
             $this->userRepo->updateOrCreate($data, $id);
-            return redirect()->route('admin.user.index')->with('success-msg', "Account created!");
+            if($id == null) {
+                $msg = "Account created!";
+            } else {
+                $msg = "Account updated!";
+            }
+            return redirect()->route('admin.user.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
             return redirect()->route('admin.user.index')->with('error-msg', self::ERROR_MSG);
         }

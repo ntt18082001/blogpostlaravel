@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{ route('admin.post.index') }}">
                         <i class="mdi mdi-newspaper"></i> <span data-key="t-widgets">Posts</span>
                     </a>
                 </li>

@@ -69,3 +69,7 @@
     pointer-events: none;
     background: #90898954;
 }
+
+.height-img-cover {
+    height: 400px;
+}

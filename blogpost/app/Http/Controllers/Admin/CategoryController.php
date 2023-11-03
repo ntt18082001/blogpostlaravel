@@ -19,7 +19,7 @@ class CategoryController extends BaseController
         if($cate_name) {
             $result = $this->cateRepo->searchCategory($cate_name)->paginate();
         } else {
-            $result = $this->cateRepo->getAll()->paginate();
+            $result = $this->cateRepo->getAllWith(['id', 'cate_name', 'description'])->paginate();
         }
         return view('Admin.category.index')->with('data', $result);
     }
@@ -31,7 +31,12 @@ class CategoryController extends BaseController
         $this->customValidate($data);
         try {
             $this->cateRepo->updateOrCreate($data, $id);
-            return redirect()->route('admin.category.index')->with('success-msg', "Category created!");
+            if($id == null) {
+                $msg = "Category created!";
+            } else {
+                $msg = "Category updated!";
+            }
+            return redirect()->route('admin.category.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
             return redirect()->route('admin.category.index')->with('error-msg', self::ERROR_MSG);
         }

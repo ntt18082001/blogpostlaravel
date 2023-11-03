@@ -11,10 +11,12 @@
             </a>
         </p>
     </div>
-    <div class="collapse" id="collapseExample">
-        @php
-            $cate_name = app('request')->input('cate_name');
-        @endphp
+    @php
+        $cate_name = app('request')->input('cate_name');
+        $show = isset($cate_name) ? 'show' : '';
+    @endphp
+    <div class="collapse {{$show}}" id="collapseExample">
+
         <div class="mb-4" id="Search">
             <div class="card mb-0">
                 <div class="card-header">
@@ -28,7 +30,7 @@
                             </div>
                             <div class="col-md-12 mt-3">
                                 <button id="btn-search" class="btn btn-primary ml-3 my-sm-0" type="submit">Search</button>
-                                <a href="{{route('admin.user.index')}}" class="btn btn-success ml-3 my-sm-0">Reset</a>
+                                <a href="{{route('admin.category.index')}}" class="btn btn-success ml-3 my-sm-0">Reset</a>
                             </div>
                         </div>
                     </form>

@@ -29,7 +29,7 @@
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="fw-medium text-muted mb-0">Categories</p>
-                            <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="97.66">0</span>k</h2>
+                            <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{ $countCate }}">0</span> category</h2>
                             <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
                                                                 <i class="ri-arrow-down-line align-middle"></i> 3.96 %
                                                             </span> vs. previous month</p>
@@ -51,7 +51,7 @@
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="fw-medium text-muted mb-0">Blogs</p>
-                            <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="78.11">0</span>k</h2>
+                            <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$countPost}}">0</span> posts</h2>
                             <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
                                                                 <i class="ri-arrow-down-line align-middle"></i> 50.5 %
                                                             </span> vs. previous month</p>

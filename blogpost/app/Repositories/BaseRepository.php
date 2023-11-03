@@ -23,6 +23,10 @@ abstract class BaseRepository implements RepositoryInterface
     {
         return $this->model->orderByDesc('id');
     }
+    public function getAllWith($columns = [])
+    {
+        return $this->model->select($columns)->orderByDesc('id');
+    }
 
     public function find($id)
     {
