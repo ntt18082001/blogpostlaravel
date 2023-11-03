@@ -13,7 +13,7 @@
             <input name="cover_path" id="img_path" type="file" class="form-control fake-d-none" accept="image/*">
             <div class="position-relative">
                 <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute" >
-                <div class="selectedImages w-100">
+                <div class="selectedImages w-100 height-img-cover">
                     <img class="image-review" />
                 </div>
             </div>

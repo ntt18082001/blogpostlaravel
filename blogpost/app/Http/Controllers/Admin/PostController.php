@@ -23,12 +23,12 @@ class PostController extends BaseController
             $title = $request->title ?? false;
             $category_id = $request->category_id ?? false;
             $author_id = $request->author_id ?? false;
-            $status = $request->status ?? false;
+            $status = isset($request->status) ?? false;
 
             $result = $this->postRepo->searchPost($title, $status, $category_id, $author_id)->paginate();
             return view('Admin.post.index')->with('data', $result);
         }
-        $result = $this->postRepo->getAllWith(['id', 'title', 'cover_path', 'status', 'category_id', 'author_id'])->paginate();
+        $result = $this->postRepo->getAllWith(['id', 'title', 'cover_path', 'status', 'category_id', 'author_id', 'created_at'])->paginate();
         return view('Admin.post.index')->with('data', $result);
     }
     function create() {
@@ -76,5 +76,16 @@ class PostController extends BaseController
         unset($data["_token"]);
         $validator = Validator::make($data, $rules, [], $fields);
         $validator->validate();
+    }
+    function delete($id) {
+        $result = $this->postRepo->delete($id);
+        $redirect = redirect()->back();
+        if($result) {
+            return $redirect->with('success-msg', 'Post deleted!');
+        }
+        return $redirect->with('error-msg', self::ERROR_MSG);
+    }
+    function detail($id) {
+
     }
 }

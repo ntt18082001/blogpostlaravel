@@ -73,6 +73,7 @@
                 <th scope="col">Category</th>
                 <th scope="col">Author</th>
                 <th scope="col">Status</th>
+                <th scope="col">Created At</th>
                 <th></th>
             </tr>
             </thead>
@@ -81,13 +82,23 @@
                 <tr>
                     <td class="fit">{{ $item->id }}</td>
                     <td class="fit text-center">
-                        <img class="header-profile-user avatar-md" src="/storage/post/{{$item->cover_path}}" alt="Header Avatar">
+                        <img class="rounded shadow" alt="200x200" width="200" src="/storage/post/{{$item->cover_path}}">
                     </td>
                     <td>{{ $item->title }}</td>
-                    <td>{{ $item->category->cate_name }}</td>
-                    <td>{{ $item->author->full_name }}</td>
-                    <td>{{ $item->status ? 'Published' : 'Un publish' }}</td>
+                    <td><h5><span class="badge badge-outline-primary">{{ $item->category->cate_name }}</span></h5></td>
+                    <td><h5><span class="badge badge-outline-secondary">{{ $item->author->full_name }}</span></h5></td>
+                    <td>
+                        @if($item->status)
+                            <h5><span class="badge badge-outline-dark me-2">Published</span> <i class="mdi mdi-eye"></i></h5>
+                        @else
+                            <h5><span class="badge badge-outline-dark me-2">Un publish</span><i class="mdi mdi-eye-off"></i></h5>
+                        @endif
+                    </td>
+                    <td>{{ $item->created_at }}</td>
                     <td class="fit">
+                        <a href="{{ route('admin.post.detail', ['id' => $item->id]) }}" class="btn btn-outline-dark">
+                            <i class="mdi mdi-eye"></i>
+                        </a>
                         <a href="{{ route('admin.post.edit', ['id' => $item->id]) }}" class="btn btn-outline-secondary">
                             <i class="mdi mdi-account-edit"></i>
                         </a>
@@ -101,7 +112,6 @@
             </tbody>
         </table>
     </div>
-
     <div>
         {{ $data->links() }}
     </div>

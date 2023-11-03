@@ -20,7 +20,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
      */
     public function searchPost($title, $status, $category_id, $author_id)
     {
-        $query = $this->model->query()->select('id', 'title', 'status', 'category_id', 'author_id')->orderByDesc('id');
+        $query = $this->model->query()->select('id', 'title', 'status', 'category_id', 'author_id', 'cover_path', 'created_at')->orderByDesc('id');
         if($title) {
             $query->where('title', 'like', "%$title%");
         }
