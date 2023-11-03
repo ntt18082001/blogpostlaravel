@@ -50,14 +50,14 @@
             @foreach ($data as $item)
                 <tr>
                     <td class="fit">{{ $item->id }}</td>
-                    <td>{{ $item->full_name }}</td>
-                    <td>{{ $item->username }}</td>
+                    <td>{{ $item->cate_name }}</td>
+                    <td>{{ $item->description }}</td>
                     <td class="fit">
                         <a href="{{ route('admin.category.edit', ['id' => $item->id]) }}" class="btn btn-outline-secondary">
                             <i class="mdi mdi-account-edit"></i>
                         </a>
                         <a href="{{ route('admin.category.delete', ['id' => $item->id]) }}" class="btn btn-outline-danger"
-                           onclick="return confirm('Confirm delete account [{{ $item->username }}]?')">
+                           onclick="return confirm('Confirm delete account [{{ $item->description }}]?')">
                             <i class="mdi mdi-delete"></i>
                         </a>
                     </td>
