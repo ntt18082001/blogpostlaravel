@@ -86,6 +86,10 @@ class PostController extends BaseController
         return $redirect->with('error-msg', self::ERROR_MSG);
     }
     function detail($id) {
-
+        $data = $this->postRepo->find($id);
+        if($data == null) {
+            return redirect()->back()->with('error-msg', 'Post not found!');
+        }
+        return view('Admin.post.detail')->with('data', $data);
     }
 }
