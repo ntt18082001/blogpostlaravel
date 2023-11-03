@@ -23,4 +23,8 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
         return $query;
     }
+    public function countCategory()
+    {
+        return $this->model->count();
+    }
 }

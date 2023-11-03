@@ -19,7 +19,7 @@ class CategoryController extends BaseController
         if($cate_name) {
             $result = $this->cateRepo->searchCategory($cate_name)->paginate();
         } else {
-            $result = $this->cateRepo->getAll()->paginate();
+            $result = $this->cateRepo->getAllWith(['id', 'cate_name', 'description'])->paginate();
         }
         return view('Admin.category.index')->with('data', $result);
     }

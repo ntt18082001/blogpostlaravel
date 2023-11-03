@@ -9,6 +9,12 @@ interface RepositoryInterface
      * @return mixed
      */
     public function getAll();
+    /**
+     * Get all with columns
+     * @param array $columns
+     * @return mixed
+     */
+    public function getAllWith($columns);
 
     /**
      * Get one
