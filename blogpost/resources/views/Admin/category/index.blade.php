@@ -57,7 +57,7 @@
                             <i class="mdi mdi-account-edit"></i>
                         </a>
                         <a href="{{ route('admin.category.delete', ['id' => $item->id]) }}" class="btn btn-outline-danger"
-                           onclick="return confirm('Confirm delete account [{{ $item->description }}]?')">
+                           onclick="return confirm('Confirm delete category [{{ $item->description }}]?')">
                             <i class="mdi mdi-delete"></i>
                         </a>
                     </td>
