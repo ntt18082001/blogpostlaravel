@@ -30,9 +30,9 @@ class HomeController extends Controller
                 return view('Admin.index')->with('countUser', $countUser)
                         ->with('countCate', $countCate)->with('countPost', $countPost);
             }
-            return redirect("/");
+            return redirect()->route('index');
         } else {
-            return redirect()->route("admin.account.login");
+            return redirect()->route("account.login");
         }
     }
 }

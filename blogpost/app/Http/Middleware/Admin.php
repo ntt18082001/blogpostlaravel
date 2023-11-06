@@ -17,11 +17,11 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::check()) {
-            return redirect()->route('admin.account.login');
+            return redirect()->route('account.login');
         }
         if(Auth::user() && Auth::user()->role_id == 1) {
             return $next($request);
         }
-        return redirect('/');
+        return redirect()->route('index');
     }
 }

@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/admin')->namespace("App\Http\Controllers\Admin")->name("admin")->group(function() {
-    Route::name(".account.")->group(function() {
-        $controller = "AccountController";
-        Route::get("/login", "$controller@login")->name("login");
-        Route::post("/login", "$controller@auth")->name("auth");
-        Route::get("/logout", "$controller@logout")->name("logout");
-    });
+Route::prefix('/')->namespace("App\Http\Controllers\Admin")->name("account.")->group(function() {
+    $controller = "AccountController";
+    Route::get("/login", "$controller@login")->name("login");
+    Route::post("/login", "$controller@auth")->name("auth");
+    Route::get("/logout", "$controller@logout")->name("logout");
+    Route::get('/register', "$controller@register")->name('register');
+    Route::post('/register', "$controller@register_post")->name('register_post');
 });
 
 Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Admin")->name("admin")->group(function() {
@@ -60,3 +60,4 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
 
 Route::get('/', "App\Http\Controllers\Client\HomeController@index")->name('index');
 
+Route::get('/post-{id}', "App\Http\Controllers\Client\PostController@detail")->name('client.post.detail');

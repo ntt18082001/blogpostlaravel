@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class AccountController extends Controller
+class AccountController extends BaseController
 {
+    protected $userRepo;
+    public function __construct(UserRepositoryInterface $userRepo) {
+        $this->userRepo = $userRepo;
+    }
     public function login()
     {
         if(Auth::check()){
@@ -21,7 +28,7 @@ class AccountController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.account.login');
+        return redirect()->route('account.login');
     }
     function auth(Request $request)
     {
@@ -42,5 +49,46 @@ class AccountController extends Controller
         } else {
             return $loginFail;
         }
+    }
+    function register() {
+        if(!Auth::check()) {
+            return view('register');
+        }
+        if(Auth::user() && Auth::user()->role_id == 1) {
+            return redirect()->route('admin.home.index');
+        }
+        return redirect()->route('index');
+    }
+    function register_post(Request $request) {
+        $data = $request->all();
+        $this->customValidate($data);
+        try {
+            $data['role_id'] = 2;
+            $this->userRepo->create($data);
+            return redirect()->route('account.login');
+        } catch (\ErrorException $exception) {
+            return redirect()->route('account.register')->with('error-msg', self::ERROR_MSG);
+        }
+    }
+    private function customValidate($data) {
+        $rules = [
+            "full_name" => ['required'],
+            "username" => ['required', 'unique:users'],
+            "email" => ['required', 'email', 'unique:users'],
+            "phone_number" => ["required", "numeric", "min:10"],
+            'password' => ['required', 'min:4'],
+            'confirmPassword' => ['same:password'],
+        ];
+        $fields = [
+            'full_name' => 'Fullname',
+            'username' => "Username",
+            'email' => "Email",
+            "phone_number" => "Phone number",
+            'password' => "Password",
+            "confirmPassword" => "Confirm password",
+        ];
+        unset($data["_token"]);
+        $validator = Validator::make($data, $rules, [], $fields);
+        $validator->validate();
     }
 }
