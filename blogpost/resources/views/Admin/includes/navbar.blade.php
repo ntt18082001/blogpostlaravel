@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Light Logo-->
-        <a href="#" target="_blank" class="logo">
+        <a href="{{route('index')}}" target="_blank" class="logo">
             <h4 class="logo-sm text-black mt-4">
                 <span>
                     Blog Post

@@ -58,6 +58,5 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
     });
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "App\Http\Controllers\Client\HomeController@index")->name('index');
+
