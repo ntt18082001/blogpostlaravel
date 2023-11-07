@@ -51,8 +51,26 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     public function getRelatedPosts($id)
     {
         return $this->model
+            ->select('id', 'title', 'cover_path', 'summary', 'created_at')
             ->where('id', '!=', $id)
             ->where('status', true)
             ->orderByDesc('id')->take(5)->get();
+    }
+    /**
+     * Get posts by cate id
+     * @param $id
+     * @return mixed
+     */
+    public function getPostsByCateId($id)
+    {
+        return $this->model->where('category_id', '=', $id)->where('status', true);
+    }
+    /**
+     * Count post by author id
+     * @return mixed
+     */
+    public function countPostByAuthorId($id)
+    {
+        return $this->model->where('author_id', '=', $id)->count();
     }
 }

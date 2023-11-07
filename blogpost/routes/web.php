@@ -61,3 +61,11 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
 Route::get('/', "App\Http\Controllers\Client\HomeController@index")->name('index');
 
 Route::get('/post-{id}', "App\Http\Controllers\Client\PostController@detail")->name('client.post.detail');
+
+Route::get('/category-{id}', "App\Http\Controllers\Client\CategoryController@index")->name('client.category.index');
+
+Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\Http\Controllers\Client")->group(function() {
+    $controller = "ProfileController";
+    Route::get('/index', "$controller@index")->name('index');
+    Route::get('/create_post', "PostController@create")->name('create-post');
+});

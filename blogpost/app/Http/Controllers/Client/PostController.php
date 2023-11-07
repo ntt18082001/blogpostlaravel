@@ -22,4 +22,7 @@ class PostController extends Controller
         }
         return view('client.post.detail')->with('data', $data);
     }
+    function create() {
+        return view('client.post.create');
+    }
 }
