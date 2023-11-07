@@ -44,7 +44,7 @@ class AccountController extends BaseController
         ];
         if (Auth::attempt($userData)) {
             $request->session()->regenerate();
-            return redirect()->route("admin.home.index");
+            return redirect()->route('index');
         } else {
             return $loginFail;
         }

@@ -4,7 +4,8 @@
             @if(isset($data->avatar))
                 <img src="/storage/avatar/{{$data->avatar}}" class="rounded float-start border w-100" alt="...">
             @else
-                <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}" class="rounded float-start border w-100" alt="...">
+                <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
+                     class="rounded float-start border w-100" alt="...">
             @endif
         </div>
         <div class="col-md-8">
@@ -28,7 +29,9 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="fw-medium text-muted mb-0">My Blogs</p>
-                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$countPost}}">{{$countPost}}</span> posts</h2>
+                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                                                                data-target="{{$countPost}}">{{$countPost}}</span>
+                                    posts</h2>
                                 <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
                                                                 <i class="ri-arrow-down-line align-middle"></i> 50.5 %
                                                             </span> vs. previous month</p>
@@ -52,7 +55,9 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="fw-medium text-muted mb-0">Blogs published</p>
-                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$countPostPublished}}">{{$countPostPublished}}</span> posts</h2>
+                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                                                                data-target="{{$countPostPublished}}">{{$countPostPublished}}</span>
+                                    posts</h2>
                                 <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
                                                                 <i class="ri-arrow-down-line align-middle"></i> 50.5 %
                                                             </span> vs. previous month</p>
@@ -76,7 +81,9 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="fw-medium text-muted mb-0">Blogs unpublish</p>
-                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="{{$countPostUnpublish}}">{{$countPostUnpublish}}</span> posts</h2>
+                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                                                                data-target="{{$countPostUnpublish}}">{{$countPostUnpublish}}</span>
+                                    posts</h2>
                                 <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
                                                                 <i class="ri-arrow-down-line align-middle"></i> 50.5 %
                                                             </span> vs. previous month</p>

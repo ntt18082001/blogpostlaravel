@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Post\PostRepositoryInterface;
+use App\Repositories\PostComment\PostCommentInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -14,28 +15,39 @@ class PostController extends BaseController
 {
     protected $postRepo;
     protected $cateRepo;
-    public function __construct(PostRepositoryInterface $postRepo, CategoryRepositoryInterface $cateRepo) {
+    protected $postCommentRepo;
+
+    public function __construct(PostRepositoryInterface $postRepo, CategoryRepositoryInterface $cateRepo, PostCommentInterface $postCommentRepo)
+    {
         $this->postRepo = $postRepo;
         $this->cateRepo = $cateRepo;
+        $this->postCommentRepo = $postCommentRepo;
     }
-    function detail($id) {
+
+    function detail($id)
+    {
         $data = $this->postRepo->find($id);
-        if($data == null) {
+        if ($data == null) {
             return redirect()->back()->with('error-msg', 'Post not found!');
         }
-        return view('client.post.detail')->with('data', $data);
+        $comments = $this->postCommentRepo->getCommentsByPostId($id)->paginate(10);
+        return view('client.post.detail')->with('data', $data)->with('comments', $comments);
     }
-    function create() {
+
+    function create()
+    {
         return view('client.post.create');
     }
-    function save(Request $request, $id = null) {
+
+    function save(Request $request, $id = null)
+    {
         $data = $request->all();
         $data['status'] = isset($data['status']) ?? false;
         $data['author_id'] = Auth::id();
         $this->customValidate($data, $id);
 
         $file = $request->file('cover_path');
-        if($file != null) {
+        if ($file != null) {
             $file_name = $file->hashName();
             $file->storeAs('/public/post', $file_name);
             $data['cover_path'] = $file_name;
@@ -43,7 +55,7 @@ class PostController extends BaseController
 
         try {
             $this->postRepo->updateOrCreate($data, $id);
-            if($id == null) {
+            if ($id == null) {
                 $msg = "Post created!";
             } else {
                 $msg = "Post updated!";
@@ -53,7 +65,9 @@ class PostController extends BaseController
             return redirect()->route('profile.index')->with('error-msg', self::ERROR_MSG);
         }
     }
-    private function customValidate($data, $id = null) {
+
+    private function customValidate($data, $id = null)
+    {
         $rules = [
             "title" => ['required'],
             "summary" => ['required'],
@@ -67,7 +81,7 @@ class PostController extends BaseController
             "author_id" => "Author",
             "category_id" => "Category"
         ];
-        if($id == null) {
+        if ($id == null) {
             $rules["cover_path"] = ["required"];
             $fields["cover_path"] = "Cover Image";
             $rules["content"] = ['required'];
@@ -76,14 +90,23 @@ class PostController extends BaseController
         $validator = Validator::make($data, $rules, [], $fields);
         $validator->validate();
     }
-    function all_post() {
+
+    public function all_post()
+    {
 
     }
-    function all_post_published() {
+
+    public function all_post_published()
+    {
 
     }
 
-    function all_post_unpublish() {
+    public function all_post_unpublish()
+    {
+
+    }
+
+    public function comment(Request $request) {
 
     }
 }
