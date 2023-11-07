@@ -103,7 +103,7 @@
                             <i class="mdi mdi-account-edit"></i>
                         </a>
                         <a href="{{ route('admin.post.delete', ['id' => $item->id]) }}" class="btn btn-outline-danger"
-                           onclick="return confirm('Confirm delete account [{{ $item->username }}]?')">
+                           onclick="return confirm('Confirm delete post [{{ $item->title }}]?')">
                             <i class="mdi mdi-delete"></i>
                         </a>
                     </td>
