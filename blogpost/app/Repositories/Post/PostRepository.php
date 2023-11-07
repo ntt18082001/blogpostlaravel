@@ -67,10 +67,29 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     }
     /**
      * Count post by author id
+     * @param $id
      * @return mixed
      */
     public function countPostByAuthorId($id)
     {
         return $this->model->where('author_id', '=', $id)->count();
+    }
+    /**
+     * Count post published by author id
+     * @param $id
+     * @return mixed
+     */
+    public function countPostPublishedByAuthorId($id)
+    {
+        return $this->model->where('status', true)->where('author_id', '=', $id)->count();
+    }
+    /**
+     * Count  unpublish by author id
+     * @param $id
+     * @return mixed
+     */
+    public function countPostUnpublishByAuthorId($id)
+    {
+        return $this->model->where('status', false)->where('author_id', '=', $id)->count();
     }
 }

@@ -12,4 +12,6 @@ interface PostRepositoryInterface extends RepositoryInterface
     public function getRelatedPosts($id);
     public function getPostsByCateId($id);
     public function countPostByAuthorId($id);
+    public function countPostPublishedByAuthorId($id);
+    public function countPostUnpublishByAuthorId($id);
 }

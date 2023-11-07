@@ -25,6 +25,10 @@ class ProfileController extends Controller
             return redirect()->route('index')->with('error-msg', 'User not found!');
         }
         $countPost = $this->postRepo->countPostByAuthorId($id);
-        return view('client.profile.index')->with('data', $user)->with('countPost', $countPost);
+        $countPostPublished = $this->postRepo->countPostPublishedByAuthorId($id);
+        $countPostUnpublish = $this->postRepo->countPostUnpublishByAuthorId($id);
+        return view('client.profile.index')
+            ->with('data', $user)->with('countPost', $countPost)
+            ->with('countPostPublished', $countPostPublished)->with('countPostUnpublish', $countPostUnpublish);
     }
 }

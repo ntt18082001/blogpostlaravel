@@ -31,7 +31,7 @@
 <body>
 <!-- Begin page -->
 <div id="layout-wrapper landing">
-    <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top bg-white" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="{{route('index')}}">
                 Blog
@@ -54,8 +54,7 @@
                         </div>
                     </li>
                 </ul>
-                <div class="">
-                    <div class="dropdown ms-sm-3 header-item topbar-user">
+                    <div class="dropdown ms-sm-3 header-item topbar-user bg-white">
                         @php
                             $name = "";
                             $avatar = "";
@@ -112,14 +111,13 @@
                             <a href="{{route('account.register')}}" class="btn btn-primary">Register</a>
                         @endif
                     </div>
-                </div>
             </div>
 
         </div>
     </nav>
     <!-- end navbar -->
         <div class="page-content">
-            <div class="container-fluid">
+            <div class="container">
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
@@ -146,7 +144,6 @@
 <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
 <script src="{{ asset('assets/js/plugins.js') }}"></script>
 
-<script src="{{ asset('js/active_navbar.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
 {{ $script ?? '' }}
 <!-- App js -->

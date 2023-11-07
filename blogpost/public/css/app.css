@@ -13,3 +13,8 @@
     height: 215px !important;
     object-fit: cover;
 }
+
+.content-blog img {
+    width: 100%;
+    height: auto;
+}

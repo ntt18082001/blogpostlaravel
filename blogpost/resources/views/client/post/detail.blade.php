@@ -2,7 +2,9 @@
     <div class="row">
         <div class="col-md-8">
             <p>Posted by: {{$data->author->full_name}} | Posted at: {{$data->created_at}}</p>
-            {!! $data->content !!}
+            <div class="content-blog">
+                {!! $data->content !!}
+            </div>
         </div>
         <div class="col-md-4">
             <x-client.related-post id="{{$data->id}}" />
