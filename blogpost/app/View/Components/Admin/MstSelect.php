@@ -25,7 +25,7 @@ class MstSelect extends Component
      */
     public function render(): View|Closure|string
     {
-        $sql = "select id, $this->displayColumn from $this->table";
+        $sql = "select id, $this->displayColumn from $this->table order by id desc";
         $data = DB::select($sql);
         return view('components.admin.mst-select')->with('data', $data);
     }

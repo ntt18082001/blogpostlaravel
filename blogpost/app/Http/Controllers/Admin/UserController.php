@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Controllers\BaseController;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -98,6 +98,12 @@ class UserController extends BaseController
         $validator->validate();
     }
     function delete($id) {
+        $user = $this->userRepo->find($id);
+        if($user != null) {
+            if(Storage::disk('public')->exists('avatar/' . $user->avatar)) {
+                Storage::disk('public')->delete('avatar/' . $user->avatar);
+            }
+        }
         $result = $this->userRepo->delete($id);
         $redirect = redirect()->back();
         if($result) {

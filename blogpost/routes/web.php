@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/admin')->namespace("App\Http\Controllers\Admin")->name("admin")->group(function() {
-    Route::name(".account.")->group(function() {
-        $controller = "AccountController";
-        Route::get("/login", "$controller@login")->name("login");
-        Route::post("/login", "$controller@auth")->name("auth");
-        Route::get("/logout", "$controller@logout")->name("logout");
-    });
+Route::prefix('/')->namespace("App\Http\Controllers\Admin")->name("account.")->group(function() {
+    $controller = "AccountController";
+    Route::get("/login", "$controller@login")->name("login");
+    Route::post("/login", "$controller@auth")->name("auth");
+    Route::get("/logout", "$controller@logout")->name("logout");
+    Route::get('/register', "$controller@register")->name('register');
+    Route::post('/register', "$controller@register_post")->name('register_post');
 });
 
 Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Admin")->name("admin")->group(function() {
@@ -34,7 +34,7 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get("/index", "$controller@index")->name("index");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
-        Route::get('/edit/{id}', "$controller@edit")->name('edit');
+        Route::get('/edit-{id}', "$controller@edit")->name('edit');
     });
 
     Route::prefix('/category')->name('.category.')->group(function() {
@@ -43,7 +43,7 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::get("/create", "$controller@create")->name("create");
         Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
-        Route::get('/edit/{id}', "$controller@edit")->name('edit');
+        Route::get('/edit-{id}', "$controller@edit")->name('edit');
     });
 
     Route::prefix('/post')->name('.post.')->group(function() {
@@ -52,12 +52,25 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::get("/create", "$controller@create")->name("create");
         Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
-        Route::get('/edit/{id}', "$controller@edit")->name('edit');
+        Route::get('/edit-{id}', "$controller@edit")->name('edit');
         Route::get('/detail/{id}', "$controller@detail")->name('detail');
         Route::get('/publish/{id}', "$controller@publish")->name('publish');
     });
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', "App\Http\Controllers\Client\HomeController@index")->name('index');
+
+Route::get('/post-{id}', "App\Http\Controllers\Client\PostController@detail")->name('client.post.detail');
+
+Route::get('/category-{id}', "App\Http\Controllers\Client\CategoryController@index")->name('client.category.index');
+
+Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\Http\Controllers\Client")->group(function() {
+    $controller = "ProfileController";
+    Route::get('/index', "$controller@index")->name('index');
+    Route::get('/create_post', "PostController@create")->name('create-post');
+    Route::post('/create_post', "PostController@save")->name('savepost');
+    Route::get('/all_post', "PostController@all_post")->name('all_post');
+    Route::get('/all_post_published', "PostController@all_post_published")->name('all_post_published');
+    Route::get('/all_post_unpublish', "PostController@all_post_unpublish")->name('all_post_unpublish');
+    Route::post('/comment', "PostController@comment")->name('comment');
 });

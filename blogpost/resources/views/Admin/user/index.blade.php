@@ -62,7 +62,12 @@
                 <tr>
                     <td class="fit">{{ $item->id }}</td>
                     <td class="fit text-center">
-                        <img class="rounded-circle header-profile-user avatar-sm" src="/storage/avatar/{{$item->avatar}}" alt="Header Avatar">
+                        @if(isset($item->avatar))
+                            <img class="rounded-circle header-profile-user avatar-sm" src="/storage/avatar/{{$item->avatar}}" alt="Header Avatar">
+                        @else
+                            <img class="rounded-circle header-profile-user"
+                                 src="{{ asset('assets/images/users/user-dummy-img.jpg') }}" alt="Header Avatar">
+                        @endif
                     </td>
                     <td>{{ $item->full_name }}</td>
                     <td>{{ $item->username }}</td>

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Post\PostRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class PostController extends BaseController
 {
@@ -83,6 +83,12 @@ class PostController extends BaseController
         $validator->validate();
     }
     function delete($id) {
+        $post = $this->postRepo->find($id);
+        if($post != null) {
+            if(Storage::disk('public')->exists('post/' . $post->cover_path)) {
+                Storage::disk('public')->delete('post/' . $post->cover_path);
+            }
+        }
         $result = $this->postRepo->delete($id);
         $redirect = redirect()->back();
         if($result) {

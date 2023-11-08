@@ -72,7 +72,7 @@
                         <a class="dropdown-item" href="#">
                             <i class="mdi mdi-key text-muted fs-16 align-middle me-1"></i><span>Change password</span>
                         </a>
-                        <a class="dropdown-item" href="{{ route('admin.account.logout') }}">
+                        <a class="dropdown-item" href="{{ route('account.logout') }}">
                             <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span>
                         </a>
                     </div>
