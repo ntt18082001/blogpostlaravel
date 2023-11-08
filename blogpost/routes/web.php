@@ -67,6 +67,7 @@ Route::get('/category-{id}', "App\Http\Controllers\Client\CategoryController@ind
 Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\Http\Controllers\Client")->group(function() {
     $controller = "ProfileController";
     Route::get('/index', "$controller@index")->name('index');
+    Route::post('/save/{id?}', "$controller@save")->name('save');
     Route::get('/create_post', "PostController@create")->name('create-post');
     Route::post('/create_post', "PostController@save")->name('savepost');
     Route::get('/all_post', "PostController@all_post")->name('all_post');
