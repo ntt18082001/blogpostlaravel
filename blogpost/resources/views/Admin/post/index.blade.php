@@ -84,7 +84,12 @@
                     <td class="fit text-center">
                         <img class="rounded shadow" alt="200x200" width="200" src="/storage/post/{{$item->cover_path}}">
                     </td>
-                    <td>{{ $item->title }}</td>
+                    <td>
+                        {{ $item->title }}
+                        @if($item->status)
+                            <a href="{{route('client.post.detail', ['id' => $item->id])}}" target="_blank"><i class="mdi mdi-checkbox-multiple-marked-outline"></i> </a>
+                        @endif
+                    </td>
                     <td><h5><span class="badge badge-outline-primary">{{ $item->category->cate_name }}</span></h5></td>
                     <td><h5><span class="badge badge-outline-secondary">{{ $item->author->full_name }}</span></h5></td>
                     <td>

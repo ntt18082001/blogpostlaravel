@@ -1,29 +1,65 @@
 <x-client.client-layout title="Profile - {{$data->full_name}}">
-    <div class="row mb-3">
-        <div class="col-md-4">
-            @if(isset($data->avatar))
-                <img src="/storage/avatar/{{$data->avatar}}" class="rounded float-start border w-100" alt="...">
-            @else
-                <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
-                     class="rounded float-start border w-100" alt="...">
-            @endif
+    <form action="{{ route('profile.save', ['id' => $data->id]) }}" method="post" class="mb-3" autocomplete="off" enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group group-container">
+                    <label class="control-label required">Avatar</label>
+                    <input name="avatar" id="img_path" type="file" class="form-control fake-d-none"  accept="image/*">
+                    <div class="position-relative d-flex justify-content-center">
+                        <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute" >
+                        <div class="selectedImages w-100">
+                            @if(isset($data->avatar))
+                                <img class="image-review" src="/storage/avatar/{{$data->avatar}}" />
+                            @else
+                                <img class="image-review" />
+                            @endif
+                        </div>
+                    </div>
+                    @error('avatar')
+                    <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <x-input name="full_name" type="text" placeholder="" label="Fullname" required value="{{ $data->full_name }}" />
+                <x-input name="phone_number" placeholder="Phone number" label="Phone number" required  value="{{ $data->phone_number }}" />
+                <x-textarea name="address" placeholder="Address" label="Address" value="{{ $data->address }}" />
+                <x-input name="birth_day" type="date" required label="Day of birth"
+                         value="{{ date('Y-m-d', strtotime($data->birth_day)) }}" />
+                <div>
+                    @php
+                        $isMale = $data->gender == 0 ? 'checked' : '';
+                        $isFemale = $data->gender == 1 ? 'checked' : '';
+                    @endphp
+                    <label for="gender" class="form-label required d-block mt-3">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="male" {{$isMale}} name="gender" value="0">
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="female" {{$isFemale}} name="gender" value="1">
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                </div>
+
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-8">
-            <p><strong>Fullname: </strong> {{$data->full_name}}</p>
-            <p><strong>Email: </strong> {{$data->email}}</p>
-            <p><strong>Phone number: </strong> {{$data->phone_number}}</p>
-            <p><strong>Day of birth: </strong> {{$data->birth_day}}</p>
-            <p><strong>Gender: </strong> {{$data->gender ? 'Female' : 'Male'}}</p>
-            <p><strong>Address: </strong> {{$data->address}}</p>
-        </div>
-    </div>
+    </form>
     <a href="{{ route('profile.create-post') }}" class="btn btn-primary mb-3 me-3">
         <i class="mdi mdi-account-plus"></i>
         Create post
     </a>
     <div class="row">
         <div class="col-md-6">
-            <a href="{{route('profile.all_post')}}">
+{{--            <a href="{{route('profile.all_post')}}">--}}
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -46,10 +82,10 @@
                         </div>
                     </div><!-- end card body -->
                 </div> <!-- end card-->
-            </a>
+{{--            </a>--}}
         </div> <!-- end col-->
         <div class="col-md-6">
-            <a href="{{route('profile.all_post_published')}}">
+{{--            <a href="{{route('profile.all_post_published')}}">--}}
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -72,10 +108,10 @@
                         </div>
                     </div><!-- end card body -->
                 </div> <!-- end card-->
-            </a>
+{{--            </a>--}}
         </div>
         <div class="col-md-6">
-            <a href="{{route('profile.all_post_unpublish')}}">
+{{--            <a href="{{route('profile.all_post_unpublish')}}">--}}
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -98,7 +134,11 @@
                         </div>
                     </div><!-- end card body -->
                 </div> <!-- end card-->
-            </a>
+{{--            </a>--}}
         </div>
     </div>
+
+    <x-slot name="script">
+        <script src="{{ asset('js/preview_img.js') }}"></script>
+    </x-slot>
 </x-client.client-layout>
