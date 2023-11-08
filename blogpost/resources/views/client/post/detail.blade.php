@@ -8,15 +8,17 @@
             <div class="mt-3">
                 <h4>Comments</h4>
                 @if(\Illuminate\Support\Facades\Auth::check())
-                    <form class="mt-3" method="post">
-                        <input type="hidden" name="id" value="{{$data->id}}">
+                    <form class="mt-3 form-comment" method="post">
+                        <input type="hidden" name="post_id" value="{{$data->id}}">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="content" placeholder="abc..."
+                            <input type="text" class="form-control" required name="content" placeholder="abc..."
                                    aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Comment</button>
+                            <button class="btn btn-outline-secondary js-submit" type="submit" id="button-addon2">
+                                Comment
+                            </button>
                         </div>
                     </form>
-                    <div class="mt-3">
+                    <div class="mt-3 comment-container">
                         @if(count($comments) > 0)
                             @foreach($comments as $item)
                                 <div class="d-flex gap-2">
@@ -28,13 +30,16 @@
                                              src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
                                              alt="Header Avatar">
                                     @endif
-                                    <div>
+                                    <div class="w-100">
                                         <p class="my-auto mx-0"><strong>{{$item->author->full_name}}:</strong>
-                                            <span>{{$item->content}}</span></p>
-                                        <button class="d-inline-block btn js-reply"
+                                            <span>{{$item->content}}</span>
+                                        </p>
+                                        <button class="d-inline-block btn js-reply" onclick="return confirm('Em chưa làm cái này!');"
                                                 data-parent-id="{{$item->id}}" data-post-id="{{$data->id}}">
                                             Reply
                                         </button>
+                                        <span>{{$item->created_at}}</span>
+                                        <div class="replyContainer"></div>
                                     </div>
                                 </div>
                             @endforeach
@@ -52,6 +57,7 @@
         </div>
     </div>
     <x-slot name="script">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="{{asset('js/comment.js')}}"></script>
     </x-slot>
 </x-client.client-layout>

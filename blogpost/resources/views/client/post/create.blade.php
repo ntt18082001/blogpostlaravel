@@ -34,7 +34,7 @@
                 <input type="hidden" id="content" name="content" />
             </div><!-- end card-body -->
             @error('content')
-            <span class="text-danger">
+                <span class="text-danger">
                     {{ $message }}
                 </span>
             @enderror

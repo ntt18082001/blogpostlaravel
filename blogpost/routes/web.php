@@ -72,4 +72,5 @@ Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\
     Route::get('/all_post', "PostController@all_post")->name('all_post');
     Route::get('/all_post_published', "PostController@all_post_published")->name('all_post_published');
     Route::get('/all_post_unpublish', "PostController@all_post_unpublish")->name('all_post_unpublish');
+    Route::post('/comment', "PostController@comment")->name('comment');
 });

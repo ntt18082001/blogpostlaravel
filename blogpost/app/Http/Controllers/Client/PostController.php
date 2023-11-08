@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Post\PostRepositoryInterface;
 use App\Repositories\PostComment\PostCommentInterface;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -107,6 +108,14 @@ class PostController extends BaseController
     }
 
     public function comment(Request $request) {
-
+        $data = $request->all();
+        $data['author_id'] = Auth::id();
+        $newComment = $this->postCommentRepo->create($data);
+        $author = [
+            'id' => $newComment->author->id,
+            'full_name' => $newComment->author->full_name,
+            'avatar' => $newComment->author->avatar,
+        ];
+        return \response()->json(['comment' => $newComment, 'author' => $author]);
     }
 }

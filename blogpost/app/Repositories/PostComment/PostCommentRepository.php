@@ -17,6 +17,15 @@ class PostCommentRepository extends BaseRepository implements PostCommentInterfa
      */
     public function getCommentsByPostId($id)
     {
-        return $this->model->select('id', 'content', 'author_id', 'post_id', 'parent_id')->where('post_id', '=', $id);
+        return $this->model->select('id', 'content', 'author_id', 'post_id', 'parent_id', 'created_at')
+            ->where('post_id', '=', $id)->orderByDesc('id');
+    }
+    /**
+     * Count comments
+     * @return mixed
+     */
+    public function countComment()
+    {
+        return $this->model->count();
     }
 }
