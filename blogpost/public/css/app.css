@@ -18,3 +18,21 @@
     width: 100%;
     height: auto;
 }
+
+.text-author {
+    margin-right: 20px;
+    text-align: end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 10px !important;
+}
+
+.btn-left {
+    margin-left: 20px;
+    text-align: end;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 10px !important;
+}

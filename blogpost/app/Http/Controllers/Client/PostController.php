@@ -61,9 +61,9 @@ class PostController extends BaseController
             } else {
                 $msg = "Post updated!";
             }
-            return redirect()->route('profile.index')->with('success-msg', $msg);
+            return redirect()->route('profile.all_post')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
-            return redirect()->route('profile.index')->with('error-msg', self::ERROR_MSG);
+            return redirect()->route('profile.all_post')->with('error-msg', self::ERROR_MSG);
         }
     }
 
@@ -92,19 +92,14 @@ class PostController extends BaseController
         $validator->validate();
     }
 
-    public function all_post()
+    public function allPost()
     {
-
-    }
-
-    public function all_post_published()
-    {
-
-    }
-
-    public function all_post_unpublish()
-    {
-
+        $id = Auth::id();
+        $result = $result = $this->postRepo
+            ->getAllWith(['id', 'title', 'cover_path', 'status', 'summary', 'category_id', 'author_id', 'created_at'])
+            ->where('author_id', '=', $id)
+            ->paginate(15);
+        return view('client.post.all_post')->with('data', $result);
     }
 
     public function comment(Request $request) {
@@ -116,6 +111,14 @@ class PostController extends BaseController
             'full_name' => $newComment->author->full_name,
             'avatar' => $newComment->author->avatar,
         ];
-        return \response()->json(['comment' => $newComment, 'author' => $author]);
+        return response()->json(['comment' => $newComment, 'author' => $author]);
+    }
+
+    function edit($id) {
+        $data = $this->postRepo->find($id);
+        if($data == null) {
+            return redirect()->back()->with('error-msg', 'Post not found!');
+        }
+        return view('client.post.edit')->with('data', $data);
     }
 }

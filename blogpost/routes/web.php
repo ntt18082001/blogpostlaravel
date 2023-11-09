@@ -34,7 +34,7 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get("/index", "$controller@index")->name("index");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
-        Route::get('/edit-{id}', "$controller@edit")->name('edit');
+        Route::get('/edit/{id}', "$controller@edit")->name('edit');
     });
 
     Route::prefix('/category')->name('.category.')->group(function() {
@@ -43,7 +43,7 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::get("/create", "$controller@create")->name("create");
         Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
-        Route::get('/edit-{id}', "$controller@edit")->name('edit');
+        Route::get('/edit/{id}', "$controller@edit")->name('edit');
     });
 
     Route::prefix('/post')->name('.post.')->group(function() {
@@ -52,7 +52,7 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::get("/create", "$controller@create")->name("create");
         Route::post("/save/{id?}", "$controller@save")->name("save");
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
-        Route::get('/edit-{id}', "$controller@edit")->name('edit');
+        Route::get('/edit/{id}', "$controller@edit")->name('edit');
         Route::get('/detail/{id}', "$controller@detail")->name('detail');
         Route::get('/publish/{id}', "$controller@publish")->name('publish');
     });
@@ -69,9 +69,8 @@ Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\
     Route::get('/index', "$controller@index")->name('index');
     Route::post('/save/{id?}', "$controller@save")->name('save');
     Route::get('/create_post', "PostController@create")->name('create-post');
-    Route::post('/create_post', "PostController@save")->name('savepost');
-    Route::get('/all_post', "PostController@all_post")->name('all_post');
-    Route::get('/all_post_published', "PostController@all_post_published")->name('all_post_published');
-    Route::get('/all_post_unpublish', "PostController@all_post_unpublish")->name('all_post_unpublish');
+    Route::post('/save_post/{id?}', "PostController@save")->name('savepost');
+    Route::get('/all_post', "PostController@allPost")->name('all_post');
     Route::post('/comment', "PostController@comment")->name('comment');
+    Route::get('/edit/{id}', "PostController@edit")->name('editpost');
 });

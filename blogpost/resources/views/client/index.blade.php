@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text mb-2">{{$item->summary}}</p>
-                                        <p class="card-text"><small class="text-muted">{{$item->author->full_name}} | {{$item->created_at}}</small></p>
+                                        <p class="card-text text-author"><small class="text-muted">{{$item->author->full_name}} | {{$item->created_at}}</small></p>
                                     </div>
                                 </div>
                             </div>

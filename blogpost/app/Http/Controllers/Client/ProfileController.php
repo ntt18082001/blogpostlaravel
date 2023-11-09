@@ -28,11 +28,8 @@ class ProfileController extends BaseController
             return redirect()->route('index')->with('error-msg', 'User not found!');
         }
         $countPost = $this->postRepo->countPostByAuthorId($id);
-        $countPostPublished = $this->postRepo->countPostPublishedByAuthorId($id);
-        $countPostUnpublish = $this->postRepo->countPostUnpublishByAuthorId($id);
         return view('client.profile.index')
-            ->with('data', $user)->with('countPost', $countPost)
-            ->with('countPostPublished', $countPostPublished)->with('countPostUnpublish', $countPostUnpublish);
+            ->with('data', $user)->with('countPost', $countPost);
     }
     function save(Request $request, $id = null) {
         $data = $request->all();

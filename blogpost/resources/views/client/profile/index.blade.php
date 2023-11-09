@@ -1,4 +1,4 @@
-<x-client.client-layout title="Profile - {{$data->full_name}}">
+<x-client.client-layout title="Profile - {{ $data->full_name }}">
     <form action="{{ route('profile.save', ['id' => $data->id]) }}" method="post" class="mb-3" autocomplete="off" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -9,8 +9,8 @@
                     <div class="position-relative d-flex justify-content-center">
                         <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute" >
                         <div class="selectedImages w-100">
-                            @if(isset($data->avatar))
-                                <img class="image-review" src="/storage/avatar/{{$data->avatar}}" />
+                            @if (isset($data->avatar))
+                                <img class="image-review" src="/storage/avatar/{{ $data->avatar }}" />
                             @else
                                 <img class="image-review" />
                             @endif
@@ -37,11 +37,11 @@
                     @endphp
                     <label for="gender" class="form-label required d-block mt-3">Gender</label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="male" {{$isMale}} name="gender" value="0">
+                        <input class="form-check-input" type="radio" id="male" {{ $isMale }} name="gender" value="0">
                         <label class="form-check-label" for="male">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="female" {{$isFemale}} name="gender" value="1">
+                        <input class="form-check-input" type="radio" id="female" {{ $isFemale }} name="gender" value="1">
                         <label class="form-check-label" for="female">Female</label>
                     </div>
                 </div>
@@ -59,14 +59,14 @@
     </a>
     <div class="row">
         <div class="col-md-6">
-{{--            <a href="{{route('profile.all_post')}}">--}}
+            <a href="{{route('profile.all_post')}}">
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="fw-medium text-muted mb-0">My Blogs</p>
                                 <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                                                                data-target="{{$countPost}}">{{$countPost}}</span>
+                                                                                data-target="{{ $countPost }}">{{ $countPost }}</span>
                                     posts</h2>
                                 <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
                                                                 <i class="ri-arrow-down-line align-middle"></i> 50.5 %
@@ -82,62 +82,9 @@
                         </div>
                     </div><!-- end card body -->
                 </div> <!-- end card-->
-{{--            </a>--}}
+            </a>
         </div> <!-- end col-->
-        <div class="col-md-6">
-{{--            <a href="{{route('profile.all_post_published')}}">--}}
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p class="fw-medium text-muted mb-0">Blogs published</p>
-                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                                                                data-target="{{$countPostPublished}}">{{$countPostPublished}}</span>
-                                    posts</h2>
-                                <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
-                                                                <i class="ri-arrow-down-line align-middle"></i> 50.5 %
-                                                            </span> vs. previous month</p>
-                            </div>
-                            <div>
-                                <div class="avatar-sm flex-shrink-0">
-                                                            <span class="avatar-title bg-secondary rounded-circle fs-2">
-                                                                <i data-feather="layout"></i>
-                                                            </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- end card body -->
-                </div> <!-- end card-->
-{{--            </a>--}}
-        </div>
-        <div class="col-md-6">
-{{--            <a href="{{route('profile.all_post_unpublish')}}">--}}
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p class="fw-medium text-muted mb-0">Blogs unpublish</p>
-                                <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                                                                data-target="{{$countPostUnpublish}}">{{$countPostUnpublish}}</span>
-                                    posts</h2>
-                                <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
-                                                                <i class="ri-arrow-down-line align-middle"></i> 50.5 %
-                                                            </span> vs. previous month</p>
-                            </div>
-                            <div>
-                                <div class="avatar-sm flex-shrink-0">
-                                                            <span class="avatar-title bg-secondary rounded-circle fs-2">
-                                                                <i data-feather="layout"></i>
-                                                            </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- end card body -->
-                </div> <!-- end card-->
-{{--            </a>--}}
-        </div>
     </div>
-
     <x-slot name="script">
         <script src="{{ asset('js/preview_img.js') }}"></script>
     </x-slot>
