@@ -26,6 +26,10 @@ class HomeController extends Controller
         $this->commentRepo = $commentRepo;
     }
 
+    /**
+     * Dashboard admin index
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function index()
     {
         if (Auth::check()) {

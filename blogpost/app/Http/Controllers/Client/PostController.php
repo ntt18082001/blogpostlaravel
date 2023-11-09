@@ -25,6 +25,11 @@ class PostController extends BaseController
         $this->postCommentRepo = $postCommentRepo;
     }
 
+    /**
+     * Client post detail page
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function detail($id)
     {
         $data = $this->postRepo->find($id);
@@ -35,11 +40,21 @@ class PostController extends BaseController
         return view('client.post.detail')->with('data', $data)->with('comments', $comments);
     }
 
+    /**
+     * Client create post for user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     function create()
     {
         return view('client.post.create');
     }
 
+    /**
+     * Submit create/edit post for user
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function save(Request $request, $id = null)
     {
         $data = $request->all();
@@ -67,6 +82,12 @@ class PostController extends BaseController
         }
     }
 
+    /**
+     * Validation post data
+     * @param $data
+     * @param $id
+     * @return void
+     */
     private function customValidate($data, $id = null)
     {
         $rules = [
@@ -92,6 +113,10 @@ class PostController extends BaseController
         $validator->validate();
     }
 
+    /**
+     * Get aLL post user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function allPost()
     {
         $id = Auth::id();
@@ -102,6 +127,11 @@ class PostController extends BaseController
         return view('client.post.all_post')->with('data', $result);
     }
 
+    /**
+     * Comment function for user
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function comment(Request $request) {
         $data = $request->all();
         $data['author_id'] = Auth::id();
@@ -114,6 +144,11 @@ class PostController extends BaseController
         return response()->json(['comment' => $newComment, 'author' => $author]);
     }
 
+    /**
+     * Find post by $id to edit for user
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function edit($id) {
         $data = $this->postRepo->find($id);
         if($data == null) {

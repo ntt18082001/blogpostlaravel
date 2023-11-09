@@ -86,22 +86,19 @@
                     </td>
                     <td>
                         {{ $item->title }}
-                        @if($item->status)
-                            <a href="{{route('client.post.detail', ['id' => $item->id])}}" target="_blank"><i class="mdi mdi-checkbox-multiple-marked-outline"></i> </a>
-                        @endif
                     </td>
                     <td><h5><span class="badge badge-outline-primary">{{ $item->category->cate_name }}</span></h5></td>
                     <td><h5><span class="badge badge-outline-secondary">{{ $item->author->full_name }}</span></h5></td>
                     <td>
                         @if($item->status)
-                            <h5><span class="badge badge-outline-dark me-2">Published</span> <i class="mdi mdi-eye"></i></h5>
+                            <h5><span class="badge badge-outline-dark me-2">Published</span></h5>
                         @else
-                            <h5><span class="badge badge-outline-dark me-2">Un publish</span><i class="mdi mdi-eye-off"></i></h5>
+                            <h5><span class="badge badge-outline-dark me-2">Un publish</span></h5>
                         @endif
                     </td>
                     <td>{{ $item->created_at }}</td>
                     <td class="fit">
-                        <a href="{{ route('admin.post.detail', ['id' => $item->id]) }}" class="btn btn-outline-dark">
+                        <a href="{{ route('client.post.detail', ['id' => $item->id]) }}" target="_blank" class="btn btn-outline-dark">
                             <i class="mdi mdi-eye"></i>
                         </a>
                         <a href="{{ route('admin.post.edit', ['id' => $item->id]) }}" class="btn btn-outline-secondary">

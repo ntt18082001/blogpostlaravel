@@ -16,6 +16,11 @@ class CategoryController extends Controller
         $this->cateRepo = $cateRepo;
     }
 
+    /**
+     * Client category index page
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function index($id) {
         $cate = $this->cateRepo->find($id);
         if($cate == null) {

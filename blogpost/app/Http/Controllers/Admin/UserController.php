@@ -18,6 +18,11 @@ class UserController extends BaseController
         $this->userRepo = $userRepo;
     }
 
+    /**
+     * Admin user index page
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     function index(Request $request) {
         if(isset($request->username) || isset($request->email)) {
             $username = isset($request->username) ? $request->username : false;
@@ -29,10 +34,21 @@ class UserController extends BaseController
         $result = $this->userRepo->getAllUser(Auth::id())->paginate();
         return view('Admin.user.index')->with('data', $result);
     }
+
+    /**
+     * Admin create user page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     function create() {
         return view('Admin.user.create');
     }
 
+    /**
+     * Submit create/edit user
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function save(Request $request, $id = null) {
         $data = $request->all();
         $this->customValidate($data, $id);
@@ -56,6 +72,13 @@ class UserController extends BaseController
             return redirect()->route('admin.user.index')->with('error-msg', self::ERROR_MSG);
         }
     }
+
+    /**
+     * Validation user data
+     * @param $data
+     * @param $id
+     * @return void
+     */
     private function customValidate($data, $id = null) {
         $rules = [
             "full_name" => ['required'],
@@ -97,6 +120,12 @@ class UserController extends BaseController
         $validator = Validator::make($data, $rules, [], $fields);
         $validator->validate();
     }
+
+    /**
+     * Find user by $id to delete
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function delete($id) {
         $user = $this->userRepo->find($id);
         if($user != null) {
@@ -111,6 +140,12 @@ class UserController extends BaseController
         }
         return $redirect->with('error-msg', self::ERROR_MSG);
     }
+
+    /**
+     * Find user by $id to edit
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function edit($id)
     {
         $user = $this->userRepo->find($id);

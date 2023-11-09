@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,9 +24,18 @@ class Post extends Model
         'author_id'
     ];
 
+    /**
+     * Config foreign key post to category
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function category() {
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
+
+    /**
+     * Config foreign key post to user
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function author() {
         return $this->hasOne(User::class, 'id', 'author_id');
     }

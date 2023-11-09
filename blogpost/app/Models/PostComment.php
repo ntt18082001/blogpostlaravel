@@ -14,6 +14,11 @@ class PostComment extends Model
         'author_id',
         'parent_id'
     ];
+
+    /**
+     * Config foreign post comment to user
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function author() {
         return $this->hasOne(User::class, 'id', 'author_id');
     }

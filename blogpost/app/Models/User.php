@@ -51,6 +51,10 @@ class User extends Authenticatable
         'birth_day'  => 'date:Y-m-d',
     ];
 
+    /**
+     * Config foreign key user to role
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function role() {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }

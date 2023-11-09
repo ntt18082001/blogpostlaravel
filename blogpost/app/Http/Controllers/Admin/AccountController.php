@@ -15,6 +15,11 @@ class AccountController extends BaseController
     public function __construct(UserRepositoryInterface $userRepo) {
         $this->userRepo = $userRepo;
     }
+
+    /**
+     * Login page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function login()
     {
         if(Auth::check()){
@@ -22,6 +27,12 @@ class AccountController extends BaseController
         }
         return view("Admin.account.login");
     }
+
+    /**
+     * Logout user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -29,6 +40,12 @@ class AccountController extends BaseController
         $request->session()->regenerateToken();
         return redirect()->route('account.login');
     }
+
+    /**
+     * Confirm login user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function auth(Request $request)
     {
         $user = User::where('username', '=', $request->username)->first();
@@ -49,6 +66,11 @@ class AccountController extends BaseController
             return $loginFail;
         }
     }
+
+    /**
+     * Register page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function register() {
         if(!Auth::check()) {
             return view('register');
@@ -58,6 +80,12 @@ class AccountController extends BaseController
         }
         return redirect()->route('index');
     }
+
+    /**
+     * Submit register user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function register_post(Request $request) {
         $data = $request->all();
         $this->customValidate($data);
@@ -69,6 +97,12 @@ class AccountController extends BaseController
             return redirect()->route('account.register')->with('error-msg', self::ERROR_MSG);
         }
     }
+
+    /**
+     * Validation data
+     * @param $data
+     * @return void
+     */
     private function customValidate($data) {
         $rules = [
             "full_name" => ['required'],

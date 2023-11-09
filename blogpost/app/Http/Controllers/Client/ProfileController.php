@@ -21,6 +21,10 @@ class ProfileController extends BaseController
         $this->postRepo = $postRepo;
     }
 
+    /**
+     * Index profile page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function index() {
         $id = Auth::id();
         $user = $this->userRepo->find($id);
@@ -31,6 +35,13 @@ class ProfileController extends BaseController
         return view('client.profile.index')
             ->with('data', $user)->with('countPost', $countPost);
     }
+
+    /**
+     * Save edit info user
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function save(Request $request, $id = null) {
         $data = $request->all();
         $this->customValidate($data, $id);
@@ -54,6 +65,13 @@ class ProfileController extends BaseController
             return redirect()->route('profile.index')->with('error-msg', self::ERROR_MSG);
         }
     }
+
+    /**
+     * Validation user data
+     * @param $data
+     * @param $id
+     * @return void
+     */
     private function customValidate($data, $id = null) {
         $rules = [
             "full_name" => ['required'],

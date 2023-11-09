@@ -18,6 +18,12 @@ class PostController extends BaseController
         $this->postRepo = $postRepo;
         $this->cateRepo = $cateRepo;
     }
+
+    /**
+     * Admin post index page
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     function index(Request $request) {
         if(isset($request->title) || isset($request->category_id) || isset($request->author_id) || isset($request->status)) {
             $title = $request->title ?? false;
@@ -31,9 +37,21 @@ class PostController extends BaseController
         $result = $this->postRepo->getAllWith(['id', 'title', 'cover_path', 'status', 'category_id', 'author_id', 'created_at'])->paginate();
         return view('Admin.post.index')->with('data', $result);
     }
+
+    /**
+     * Admin create post page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     function create() {
         return view('Admin.post.create');
     }
+
+    /**
+     * Submit create/edit posts (admin)
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function save(Request $request, $id = null) {
         $data = $request->all();
         $data['status'] = isset($data['status']) ?? false;
@@ -59,6 +77,13 @@ class PostController extends BaseController
             return redirect()->route('admin.post.index')->with('error-msg', self::ERROR_MSG);
         }
     }
+
+    /**
+     * Validation data post
+     * @param $data
+     * @param $id
+     * @return void
+     */
     private function customValidate($data, $id = null) {
         $rules = [
             "title" => ['required'],
@@ -82,6 +107,12 @@ class PostController extends BaseController
         $validator = Validator::make($data, $rules, [], $fields);
         $validator->validate();
     }
+
+    /**
+     * Find post by $id to delete
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     function delete($id) {
         $post = $this->postRepo->find($id);
         if($post != null) {
@@ -96,6 +127,12 @@ class PostController extends BaseController
         }
         return $redirect->with('error-msg', self::ERROR_MSG);
     }
+
+    /**
+     * Find post by $id to show detail
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function detail($id) {
         $data = $this->postRepo->find($id);
         if($data == null) {
@@ -103,6 +140,12 @@ class PostController extends BaseController
         }
         return view('Admin.post.detail')->with('data', $data);
     }
+
+    /**
+     * Find post by $id to edit
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
+     */
     function edit($id) {
         $data = $this->postRepo->find($id);
         if($data == null) {

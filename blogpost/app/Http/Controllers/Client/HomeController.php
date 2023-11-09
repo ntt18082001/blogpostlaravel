@@ -15,6 +15,12 @@ class HomeController extends Controller
         $this->postRepo = $postRepo;
         $this->cateRepo = $cateRepo;
     }
+
+    /**
+     * Client home index page
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     function index(Request $request) {
         if(isset($request->title) || isset($request->category_id) || isset($request->author_id) || isset($request->status)) {
             $title = $request->title ?? false;
