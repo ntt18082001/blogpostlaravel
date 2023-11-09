@@ -64,9 +64,9 @@ class PostController extends BaseController
 
         $file = $request->file('cover_path');
         if ($file != null) {
-            $file_name = $file->hashName();
-            $file->storeAs('/public/post', $file_name);
-            $data['cover_path'] = $file_name;
+            $fileName = $file->hashName();
+            $file->storeAs('/public/post', $fileName);
+            $data['cover_path'] = $fileName;
         }
 
         try {
@@ -120,7 +120,7 @@ class PostController extends BaseController
     public function allPost()
     {
         $id = Auth::id();
-        $result = $result = $this->postRepo
+        $result = $this->postRepo
             ->getAllWith(['id', 'title', 'cover_path', 'status', 'summary', 'category_id', 'author_id', 'created_at'])
             ->where('author_id', '=', $id)
             ->paginate(15);
@@ -141,6 +141,7 @@ class PostController extends BaseController
             'full_name' => $newComment->author->full_name,
             'avatar' => $newComment->author->avatar,
         ];
+        unset($newComment['author']);
         return response()->json(['comment' => $newComment, 'author' => $author]);
     }
 

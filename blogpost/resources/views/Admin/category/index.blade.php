@@ -12,8 +12,8 @@
         </p>
     </div>
     @php
-        $cate_name = app('request')->input('cate_name');
-        $show = isset($cate_name) ? 'show' : '';
+        $cateName = app('request')->input('cate_name');
+        $show = isset($cateName) ? 'show' : '';
     @endphp
     <div class="collapse {{$show}}" id="collapseExample">
 
@@ -26,7 +26,7 @@
                     <form method="GET" action="{{ route('admin.category.index') }}">
                         <div class="row">
                             <div class="col-md-4">
-                                <x-input name="cate_name" label="Name" value={{$cate_name}} />
+                                <x-input name="cate_name" label="Name" value={{$cateName}} />
                             </div>
                             <div class="col-md-12 mt-3">
                                 <button id="btn-search" class="btn btn-primary ml-3 my-sm-0" type="submit">Search</button>

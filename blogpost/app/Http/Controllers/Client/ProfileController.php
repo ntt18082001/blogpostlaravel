@@ -48,9 +48,9 @@ class ProfileController extends BaseController
 
         $file = $request->file('avatar');
         if($file != null) {
-            $file_name = $file->hashName();
-            $file->storeAs('/public/avatar', $file_name);
-            $data['avatar'] = $file_name;
+            $fileName = $file->hashName();
+            $file->storeAs('/public/avatar', $fileName);
+            $data['avatar'] = $fileName;
         }
 
         try {

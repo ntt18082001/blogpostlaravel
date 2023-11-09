@@ -6,11 +6,11 @@
 </p>
 @php
     $title = app('request')->input('title');
-    $category_id = app('request')->input('category_id');
-    $author_id = app('request')->input('author_id');
+    $categoryId = app('request')->input('category_id');
+    $authorId = app('request')->input('author_id');
 
     $show = '';
-    if(isset($title) || isset($category_id) || isset($author_id)) {
+    if(isset($title) || isset($categoryId) || isset($authorId)) {
         $show = 'show';
     }
 @endphp
@@ -28,11 +28,11 @@
                         </div>
                         <div class="col-md-4">
                             <x-admin.mst-select name="category_id" label="Category" table="categories"
-                                                displayColumn="cate_name" value="{{$category_id}}" />
+                                                displayColumn="cate_name" value="{{$categoryId}}" />
                         </div>
                         <div class="col-md-4">
                             <x-admin.mst-select name="author_id" label="Author" table="users"
-                                                displayColumn="full_name" value="{{$author_id}}" />
+                                                displayColumn="full_name" value="{{$authorId}}" />
                         </div>
                         <div class="col-md-12 mt-3">
                             <button id="btn-search" class="btn btn-primary ml-3 my-sm-0" type="submit">Search</button>

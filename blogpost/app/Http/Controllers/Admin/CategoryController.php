@@ -20,9 +20,9 @@ class CategoryController extends BaseController
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
     function index(Request $request) {
-        $cate_name = isset($request->cate_name) ? $request->cate_name : false;
-        if($cate_name) {
-            $result = $this->cateRepo->searchCategory($cate_name)->paginate();
+        $cateName = isset($request->cate_name) ? $request->cate_name : false;
+        if($cateName) {
+            $result = $this->cateRepo->searchCategory($cateName)->paginate();
         } else {
             $result = $this->cateRepo->getAllWith(['id', 'cate_name', 'description'])->paginate();
         }

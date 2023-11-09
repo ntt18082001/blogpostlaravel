@@ -24,11 +24,11 @@ class HomeController extends Controller
     function index(Request $request) {
         if(isset($request->title) || isset($request->category_id) || isset($request->author_id) || isset($request->status)) {
             $title = $request->title ?? false;
-            $category_id = $request->category_id ?? false;
-            $author_id = $request->author_id ?? false;
+            $categoryId = $request->category_id ?? false;
+            $authorId = $request->author_id ?? false;
             $status = isset($request->status) ?? false;
 
-            $result = $this->postRepo->searchPost($title, $status, $category_id, $author_id)->where('status', true)->paginate(15);
+            $result = $this->postRepo->searchPost($title, $status, $categoryId, $authorI)->where('status', true)->paginate(15);
             return view('client.index')->with('data', $result);
         }
         $result = $this->postRepo

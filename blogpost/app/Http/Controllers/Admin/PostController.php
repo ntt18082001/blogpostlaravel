@@ -27,11 +27,11 @@ class PostController extends BaseController
     function index(Request $request) {
         if(isset($request->title) || isset($request->category_id) || isset($request->author_id) || isset($request->status)) {
             $title = $request->title ?? false;
-            $category_id = $request->category_id ?? false;
-            $author_id = $request->author_id ?? false;
+            $categoryId = $request->category_id ?? false;
+            $authorId = $request->author_id ?? false;
             $status = isset($request->status) ?? false;
 
-            $result = $this->postRepo->searchPost($title, $status, $category_id, $author_id)->paginate();
+            $result = $this->postRepo->searchPost($title, $status, $categoryId, $authorId)->paginate();
             return view('Admin.post.index')->with('data', $result);
         }
         $result = $this->postRepo->getAllWith(['id', 'title', 'cover_path', 'status', 'category_id', 'author_id', 'created_at'])->paginate();
