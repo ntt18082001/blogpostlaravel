@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends BaseController
@@ -50,22 +51,28 @@ class AccountController extends BaseController
      */
     function auth(Request $request)
     {
-        $user = User::where('username', '=', $request->username)->first();
-        $loginFail = redirect()
-            ->back()
-            ->with("login-err-msg", "Tài khoản không hợp lệ!");
-        if ($user == null) {
-            return $loginFail;
+        try {
+            $user = User::where('username', '=', $request->username)->first();
+            $loginFail = redirect()
+                ->back()
+                ->with("login-err-msg", "Tài khoản không hợp lệ!");
+            if ($user == null) {
+                return $loginFail;
+            }
+            $userData = [
+                'username' => $request->username,
+                'password' => $request->password
+            ];
+            if (Auth::attempt($userData)) {
+                $request->session()->regenerate();
+                return redirect()->route('index');
+            } else {
+                return $loginFail;
+            }
         }
-        $userData = [
-            'username' => $request->username,
-            'password' => $request->password
-        ];
-        if (Auth::attempt($userData)) {
-            $request->session()->regenerate();
-            return redirect()->route('index');
-        } else {
-            return $loginFail;
+        catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
+            return redirect()->route('account.login')->with('error-msg', self::ERROR_MSG);
         }
     }
 
@@ -98,6 +105,7 @@ class AccountController extends BaseController
             $this->userRepo->create($data);
             return redirect()->route('account.login');
         } catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
             return redirect()->route('account.register')->with('error-msg', self::ERROR_MSG);
         }
     }

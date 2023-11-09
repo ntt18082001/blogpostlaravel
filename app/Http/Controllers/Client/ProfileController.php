@@ -8,6 +8,7 @@ use App\Repositories\Post\PostRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -65,6 +66,7 @@ class ProfileController extends BaseController
             }
             return redirect()->route('profile.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
             return redirect()->route('profile.index')->with('error-msg', self::ERROR_MSG);
         }
     }
