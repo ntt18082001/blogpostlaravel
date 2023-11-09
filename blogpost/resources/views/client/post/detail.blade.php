@@ -44,7 +44,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p>No comments.</p>
+                            <p class="no-comment">No comments.</p>
                         @endif
                     </div>
                 @else

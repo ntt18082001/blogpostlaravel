@@ -54,6 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>`;
                 document.querySelector('.comment-container').insertAdjacentHTML('afterbegin', templateComment);
             });
+        let eleNoComment = document.querySelector(".comment-container .no-comment");
+        if (eleNoComment !== null) {
+            eleNoComment.remove();
+        }
         this.reset();
         event.preventDefault();
     });
