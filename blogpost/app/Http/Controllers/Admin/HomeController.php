@@ -17,10 +17,8 @@ class HomeController extends Controller
     protected $postRepo;
     protected $commentRepo;
 
-    public function __construct(UserRepositoryInterface     $userRepo,
-                                CategoryRepositoryInterface $cateRepo,
-                                PostRepositoryInterface     $postRepo,
-                                PostCommentInterface        $commentRepo)
+    public function __construct(UserRepositoryInterface $userRepo, CategoryRepositoryInterface $cateRepo,
+                                PostRepositoryInterface $postRepo, PostCommentInterface $commentRepo)
     {
         $this->userRepo = $userRepo;
         $this->cateRepo = $cateRepo;

@@ -57,7 +57,6 @@
 </div>
 @include('Admin.includes.backToTop')
 @include('Admin.includes.preLoader')
-@include('Admin.includes.themeSettings')
 <!-- END layout-wrapper -->
 <!-- JAVASCRIPT -->
 <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

@@ -22,13 +22,13 @@ class HomeController extends Controller
             $author_id = $request->author_id ?? false;
             $status = isset($request->status) ?? false;
 
-            $result = $this->postRepo->searchPost($title, $status, $category_id, $author_id)->where('status', true)->paginate();
+            $result = $this->postRepo->searchPost($title, $status, $category_id, $author_id)->where('status', true)->paginate(15);
             return view('client.index')->with('data', $result);
         }
         $result = $this->postRepo
                 ->getAllWith(['id', 'title', 'cover_path', 'status', 'summary', 'category_id', 'author_id', 'created_at'])
                 ->where('status', true)
-                ->paginate();
+                ->paginate(15);
         return view('client.index')->with('data', $result);
     }
 }

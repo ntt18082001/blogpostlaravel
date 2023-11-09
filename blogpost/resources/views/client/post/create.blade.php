@@ -24,14 +24,17 @@
             @enderror
         </div>
         <x-textarea name="summary" placeholder="Summary" label="Summary" required />
+        @php
+            $_old_value = old('content');
+            $_value = empty($_old_value) ? '' : $_old_value;
+        @endphp
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title mb-0 required">Content</h4>
             </div><!-- end card header -->
             <div class="card-body">
-                <div class="snow-editor" id="editor" style="height: 300px;">
-                </div> <!-- end Snow-editor-->
-                <input type="hidden" id="content" name="content" />
+                <div class="snow-editor" id="editor" style="height: 300px;">{!! $_value !!}</div> <!-- end Snow-editor-->
+                <input type="hidden" id="content" name="content" value="{{ $_value }}" />
             </div><!-- end card-body -->
             @error('content')
                 <span class="text-danger">
