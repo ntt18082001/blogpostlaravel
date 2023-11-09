@@ -10,6 +10,7 @@ use App\Repositories\PostComment\PostCommentInterface;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends BaseController
@@ -78,6 +79,7 @@ class PostController extends BaseController
             }
             return redirect()->route('profile.all_post')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
             return redirect()->route('profile.all_post')->with('error-msg', self::ERROR_MSG);
         }
     }

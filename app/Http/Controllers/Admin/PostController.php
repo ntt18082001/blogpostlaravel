@@ -7,6 +7,7 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Post\PostRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -79,6 +80,7 @@ class PostController extends BaseController
             }
             return redirect()->route('admin.post.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
             return redirect()->route('admin.post.index')->with('error-msg', self::ERROR_MSG);
         }
     }

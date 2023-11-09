@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -73,6 +74,7 @@ class UserController extends BaseController
             }
             return redirect()->route('admin.user.index')->with('success-msg', $msg);
         } catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
             return redirect()->route('admin.user.index')->with('error-msg', self::ERROR_MSG);
         }
     }
