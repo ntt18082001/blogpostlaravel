@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-12">
             <div class="row">
-                @foreach($data as $item)
+                @foreach ($data as $item)
                     <div class="col-xxl-6">
                         <div class="card">
                             <div class="row g-0">
@@ -18,7 +18,7 @@
                                         <a href="{{ route('client.post.detail', ['id' => $item->id]) }}">
                                             <h5 class="card-title mb-0">
                                                 {{ $item->title }}
-                                                @if($item->status)
+                                                @if ($item->status)
                                                     <i class="mdi mdi-eye"></i>
                                                 @else
                                                     <i class="mdi mdi-eye-off"></i>
@@ -28,8 +28,11 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text mb-2">{{ $item->summary }}</p>
-                                        <p class="card-text text-author"><small class="text-muted">{{ $item->author->full_name }} | {{ $item->created_at }}</small></p>
-                                        <a href="{{ route('profile.editpost', ['id' => $item->id]) }}" class="btn btn-sm btn-outline-dark btn-left">Edit</a>
+                                        <p class="card-text text-author"><small
+                                                class="text-muted">{{ $item->author->full_name }}
+                                                | {{ $item->created_at }}</small></p>
+                                        <a href="{{ route('profile.editpost', ['id' => $item->id]) }}"
+                                           class="btn btn-sm btn-outline-dark btn-left">Edit</a>
                                     </div>
                                 </div>
                             </div>

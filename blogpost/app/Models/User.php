@@ -48,14 +48,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'birth_day'  => 'date:Y-m-d',
+        'birth_day' => 'date:Y-m-d',
     ];
 
     /**
      * Config foreign key user to role
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function role() {
+    public function role()
+    {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
 }

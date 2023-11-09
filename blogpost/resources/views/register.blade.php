@@ -13,10 +13,10 @@
                             {{ session('login-err-msg') }}
                         </div>
                     @endif
-                    <x-input name="full_name" label="Fullname" />
+                    <x-input name="full_name" label="Fullname"/>
                     <x-input name="username" label="Username"/>
-                    <x-input name="email" label="Email" type="email" />
-                    <x-input name="phone_number" label="Phone number" />
+                    <x-input name="email" label="Email" type="email"/>
+                    <x-input name="phone_number" label="Phone number"/>
                     <div class="mb-3 mt-3">
                         <label class="form-label" for="password-input">Password</label>
                         <div class="position-relative auth-pass-inputgroup mb-3">
@@ -27,7 +27,7 @@
                                 type="button" id="password-addon"><i
                                     class="ri-eye-fill align-middle"></i></button>
                         </div>
-                        @error('password')
+                        @error ('password')
                         <span class="text-danger">
                                 {{ $message }}
                             </span>
@@ -43,7 +43,7 @@
                                 type="button" id="password-addon"><i
                                     class="ri-eye-fill align-middle"></i></button>
                         </div>
-                        @error('confirmPassword')
+                        @error ('confirmPassword')
                         <span class="text-danger">
                                 {{ $message }}
                             </span>
@@ -59,6 +59,8 @@
     </div>
     <!-- end card -->
     <div class="mt-4 text-center">
-        <p class="mb-0">You have an account ? <a href="{{route('account.login')}}" class="fw-semibold text-primary text-decoration-underline"> Login </a> </p>
+        <p class="mb-0">You have an account ? <a href="{{ route('account.login') }}"
+                                                 class="fw-semibold text-primary text-decoration-underline"> Login </a>
+        </p>
     </div>
 </x-client.account-layout>

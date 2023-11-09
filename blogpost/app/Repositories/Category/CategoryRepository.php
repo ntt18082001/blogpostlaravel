@@ -10,6 +10,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return \App\Models\Category::class;
     }
+
     /**
      * Search categories by cate_name
      * @param $cate_name
@@ -18,11 +19,12 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function searchCategory($cate_name)
     {
         $query = $this->model->query()->select('id', 'cate_name', 'description')->orderByDesc('id');
-        if($cate_name) {
+        if ($cate_name) {
             $query->where('cate_name', 'like', "%$cate_name%");
         }
         return $query;
     }
+
     /**
      * Count category
      * @return mixed

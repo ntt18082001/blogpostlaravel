@@ -12,9 +12,13 @@
 <div class="form-group mt-3">
     <label for="{{ $_name }}" class="form-label {{$_isrequired}}"> {{ $_label }} </label>
     <textarea id="{{ $_name }}" name="{{ $_name }}" {{ $_isrequired }}
-    class="form-control @error($_name) is-inavalid @enderror " rows="{{ $_rows }}">@if($_is_html_decoding){!! $_value !!}@else{{ $_value }}@endif</textarea>
+    class="form-control @error($_name) is-inavalid @enderror " rows="{{ $_rows }}">@if($_is_html_decoding)
+            {!! $_value !!}
+        @else
+            {{ $_value }}
+        @endif</textarea>
 
-    @error($_name)
+    @error ($_name)
     <span class="text-danger">
             {{ $message }}
         </span>

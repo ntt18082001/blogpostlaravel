@@ -10,10 +10,11 @@
 @endphp
 <div class="form-group mt-3">
     <label for="{{ $_name }}" class="form-label {{$_isrequired}}"> {{ $_label }} </label>
-    <input id="{{ $_name }}" name="{{ $_name }}" value="{{ $_value }}" type="{{ $_type }}" {{$_isrequired}} {{ $_isReadonly }}
-    class="form-control @error($_name) is-inavalid @enderror">
+    <input id="{{ $_name }}" name="{{ $_name }}" value="{{ $_value }}" type="{{ $_type }}"
+           {{$_isrequired}} {{ $_isReadonly }}
+           class="form-control @error($_name) is-inavalid @enderror">
     <span class="text-danger"></span>
-    @error($_name)
+    @error ($_name)
     <span class="text-danger">
             {{ $message }}
         </span>

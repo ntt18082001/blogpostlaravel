@@ -21,13 +21,13 @@
                     @endif
                 </div>
             </div>
-            @error('cover_path')
+            @error ('cover_path')
             <span class="text-danger">
                     {{ $message }}
                 </span>
             @enderror
         </div>
-        <x-textarea name="summary" placeholder="Summary" label="Summary" required value="{{$data->summary}}"/>
+        <x-textarea name="summary" placeholder="Summary" label="Summary" required value="{{ $data->summary }}"/>
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title mb-0 required">Content</h4>
@@ -37,8 +37,8 @@
                 <!-- end Snow-editor-->
                 <input type="hidden" id="content" name="content"/>
             </div><!-- end card-body -->
-            @error('content')
-                <span class="text-danger">
+            @error ('content')
+            <span class="text-danger">
                     {{ $message }}
                 </span>
             @enderror

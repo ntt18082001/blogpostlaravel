@@ -15,6 +15,7 @@ class ProfileController extends BaseController
 {
     protected $userRepo;
     protected $postRepo;
+
     public function __construct(UserRepositoryInterface $userRepo, PostRepositoryInterface $postRepo)
     {
         $this->userRepo = $userRepo;
@@ -25,10 +26,11 @@ class ProfileController extends BaseController
      * Index profile page
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    function index() {
+    function index()
+    {
         $id = Auth::id();
         $user = $this->userRepo->find($id);
-        if($user == null) {
+        if ($user == null) {
             return redirect()->route('index')->with('error-msg', 'User not found!');
         }
         $countPost = $this->postRepo->countPostByAuthorId($id);
@@ -42,12 +44,13 @@ class ProfileController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    function save(Request $request, $id = null) {
+    function save(Request $request, $id = null)
+    {
         $data = $request->all();
         $this->customValidate($data, $id);
 
         $file = $request->file('avatar');
-        if($file != null) {
+        if ($file != null) {
             $fileName = $file->hashName();
             $file->storeAs('/public/avatar', $fileName);
             $data['avatar'] = $fileName;
@@ -55,7 +58,7 @@ class ProfileController extends BaseController
 
         try {
             $this->userRepo->updateOrCreate($data, $id);
-            if($id == null) {
+            if ($id == null) {
                 $msg = "Profile created!";
             } else {
                 $msg = "Profile updated!";
@@ -72,7 +75,8 @@ class ProfileController extends BaseController
      * @param $id
      * @return void
      */
-    private function customValidate($data, $id = null) {
+    private function customValidate($data, $id = null)
+    {
         $rules = [
             "full_name" => ['required'],
             "address" => ["required"],

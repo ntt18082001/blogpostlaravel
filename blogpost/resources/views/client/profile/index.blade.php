@@ -1,18 +1,19 @@
 <x-client.client-layout title="Profile - {{ $data->full_name }}">
-    <form action="{{ route('profile.save', ['id' => $data->id]) }}" method="post" class="mb-3" autocomplete="off" enctype="multipart/form-data">
+    <form action="{{ route('profile.save', ['id' => $data->id]) }}" method="post" class="mb-3" autocomplete="off"
+          enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group group-container">
                     <label class="control-label required">Avatar</label>
-                    <input name="avatar" id="img_path" type="file" class="form-control fake-d-none"  accept="image/*">
+                    <input name="avatar" id="img_path" type="file" class="form-control fake-d-none" accept="image/*">
                     <div class="position-relative d-flex justify-content-center">
-                        <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute" >
+                        <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute">
                         <div class="selectedImages w-100">
                             @if (isset($data->avatar))
-                                <img class="image-review" src="/storage/avatar/{{ $data->avatar }}" />
+                                <img class="image-review" src="/storage/avatar/{{ $data->avatar }}"/>
                             @else
-                                <img class="image-review" />
+                                <img class="image-review"/>
                             @endif
                         </div>
                     </div>
@@ -25,11 +26,13 @@
 
             </div>
             <div class="col-md-8">
-                <x-input name="full_name" type="text" placeholder="" label="Fullname" required value="{{ $data->full_name }}" />
-                <x-input name="phone_number" placeholder="Phone number" label="Phone number" required  value="{{ $data->phone_number }}" />
-                <x-textarea name="address" placeholder="Address" label="Address" value="{{ $data->address }}" />
+                <x-input name="full_name" type="text" placeholder="" label="Fullname" required
+                         value="{{ $data->full_name }}"/>
+                <x-input name="phone_number" placeholder="Phone number" label="Phone number" required
+                         value="{{ $data->phone_number }}"/>
+                <x-textarea name="address" placeholder="Address" label="Address" value="{{ $data->address }}"/>
                 <x-input name="birth_day" type="date" required label="Day of birth"
-                         value="{{ date('Y-m-d', strtotime($data->birth_day)) }}" />
+                         value="{{ date('Y-m-d', strtotime($data->birth_day)) }}"/>
                 <div>
                     @php
                         $isMale = $data->gender == 0 ? 'checked' : '';
@@ -41,7 +44,8 @@
                         <label class="form-check-label" for="male">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="female" {{ $isFemale }} name="gender" value="1">
+                        <input class="form-check-input" type="radio" id="female" {{ $isFemale }} name="gender"
+                               value="1">
                         <label class="form-check-label" for="female">Female</label>
                     </div>
                 </div>
@@ -59,7 +63,7 @@
     </a>
     <div class="row">
         <div class="col-md-6">
-            <a href="{{route('profile.all_post')}}">
+            <a href="{{ route('profile.all_post') }}">
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">

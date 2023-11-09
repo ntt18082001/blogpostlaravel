@@ -28,7 +28,8 @@ class Post extends Model
      * Config foreign key post to category
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function category() {
+    public function category()
+    {
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
@@ -36,7 +37,8 @@ class Post extends Model
      * Config foreign key post to user
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function author() {
+    public function author()
+    {
         return $this->hasOne(User::class, 'id', 'author_id');
     }
 }

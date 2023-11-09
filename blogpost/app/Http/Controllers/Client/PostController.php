@@ -132,7 +132,8 @@ class PostController extends BaseController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function comment(Request $request) {
+    public function comment(Request $request)
+    {
         $data = $request->all();
         $data['author_id'] = Auth::id();
         $newComment = $this->postCommentRepo->create($data);
@@ -150,9 +151,10 @@ class PostController extends BaseController
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    function edit($id) {
+    function edit($id)
+    {
         $data = $this->postRepo->find($id);
-        if($data == null) {
+        if ($data == null) {
             return redirect()->back()->with('error-msg', 'Post not found!');
         }
         return view('client.post.edit')->with('data', $data);

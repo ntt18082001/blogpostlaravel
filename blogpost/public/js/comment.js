@@ -30,7 +30,7 @@
 //     });
 // }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.form-comment').addEventListener('submit', function (event) {
         let data = this;
         axios.post('/profile/comment', new FormData(data))

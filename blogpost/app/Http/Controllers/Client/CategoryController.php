@@ -11,7 +11,9 @@ class CategoryController extends Controller
 {
     protected $postRepo;
     protected $cateRepo;
-    public function __construct(PostRepositoryInterface $postRepo, CategoryRepositoryInterface $cateRepo){
+
+    public function __construct(PostRepositoryInterface $postRepo, CategoryRepositoryInterface $cateRepo)
+    {
         $this->postRepo = $postRepo;
         $this->cateRepo = $cateRepo;
     }
@@ -21,9 +23,10 @@ class CategoryController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    function index($id) {
+    function index($id)
+    {
         $cate = $this->cateRepo->find($id);
-        if($cate == null) {
+        if ($cate == null) {
             return redirect()->route('index')->with('error-msg', 'Category not found!');
         }
         $data = $this->postRepo->getPostsByCateId($id)->paginate();

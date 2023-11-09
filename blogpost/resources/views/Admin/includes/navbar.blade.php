@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Light Logo-->
-        <a href="{{route('index')}}" target="_blank" class="logo">
+        <a href="{{ route('index') }}" target="_blank" class="logo">
             <h4 class="logo-sm text-black mt-4">
                 <span>
                     Blog Post
@@ -53,6 +53,5 @@
     <div class="sidebar-background"></div>
 </div>
 <!-- Left Sidebar End -->
-
 <!-- Vertical Overlay-->
 <div class="vertical-overlay"></div>

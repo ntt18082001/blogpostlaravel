@@ -1,20 +1,20 @@
 <x-client.client-layout title="Create Post">
     <x-slot name="header">
         <!-- quill css -->
-        <link href="{{ asset('assets/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/quill/quill.bubble.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/libs/quill/quill.snow.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/libs/quill/quill.bubble.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/libs/quill/quill.snow.css') }}" rel="stylesheet" type="text/css"/>
     </x-slot>
     <form action="{{ route('profile.savepost') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <x-input name="title" placeholder="Title" label="Title" required />
+        <x-input name="title" placeholder="Title" label="Title" required/>
         <div class="form-group group-container mb-3 mt-3">
             <label class="control-label required">Cover Image</label>
             <input name="cover_path" id="img_path" type="file" class="form-control fake-d-none" accept="image/*">
             <div class="position-relative">
-                <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute" >
+                <input type="button" class="btn btn-choose-file w-100 h-100 position-absolute">
                 <div class="selectedImages w-100 height-img-cover">
-                    <img class="image-review" />
+                    <img class="image-review"/>
                 </div>
             </div>
             @error('cover_path')
@@ -23,7 +23,7 @@
                 </span>
             @enderror
         </div>
-        <x-textarea name="summary" placeholder="Summary" label="Summary" required />
+        <x-textarea name="summary" placeholder="Summary" label="Summary" required/>
         @php
             $_old_value = old('content');
             $_value = empty($_old_value) ? '' : $_old_value;
@@ -33,11 +33,12 @@
                 <h4 class="card-title mb-0 required">Content</h4>
             </div><!-- end card header -->
             <div class="card-body">
-                <div class="snow-editor" id="editor" style="height: 300px;">{!! $_value !!}</div> <!-- end Snow-editor-->
-                <input type="hidden" id="content" name="content" value="{{ $_value }}" />
+                <div class="snow-editor" id="editor" style="height: 300px;">{!! $_value !!}</div>
+                <!-- end Snow-editor-->
+                <input type="hidden" id="content" name="content" value="{{ $_value }}"/>
             </div><!-- end card-body -->
-            @error('content')
-                <span class="text-danger">
+            @error ('content')
+            <span class="text-danger">
                     {{ $message }}
                 </span>
             @enderror
@@ -45,12 +46,12 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <x-admin.mst-select name="category_id" label="Category" table="categories"
-                                    displayColumn="cate_name" required />
+                                    displayColumn="cate_name" required/>
             </div>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>Submit</button>
-            <a href="{{route('profile.index')}}" class="btn btn-secondary"><i class="fa fa-save"></i>Back</a>
+            <a href="{{ route('profile.index') }}" class="btn btn-secondary"><i class="fa fa-save"></i>Back</a>
         </div>
     </form>
     <x-slot name="script">

@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 class UserController extends BaseController
 {
     protected $userRepo;
+
     public function __construct(UserRepositoryInterface $userRepo)
     {
         $this->userRepo = $userRepo;
@@ -23,8 +24,9 @@ class UserController extends BaseController
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    function index(Request $request) {
-        if(isset($request->username) || isset($request->email)) {
+    function index(Request $request)
+    {
+        if (isset($request->username) || isset($request->email)) {
             $username = isset($request->username) ? $request->username : false;
             $email = isset($request->email) ? $request->email : false;
 
@@ -39,7 +41,8 @@ class UserController extends BaseController
      * Admin create user page
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    function create() {
+    function create()
+    {
         return view('Admin.user.create');
     }
 
@@ -49,12 +52,13 @@ class UserController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    function save(Request $request, $id = null) {
+    function save(Request $request, $id = null)
+    {
         $data = $request->all();
         $this->customValidate($data, $id);
 
         $file = $request->file('avatar');
-        if($file != null) {
+        if ($file != null) {
             $fileName = $file->hashName();
             $file->storeAs('/public/avatar', $fileName);
             $data['avatar'] = $fileName;
@@ -62,7 +66,7 @@ class UserController extends BaseController
 
         try {
             $this->userRepo->updateOrCreate($data, $id);
-            if($id == null) {
+            if ($id == null) {
                 $msg = "Account created!";
             } else {
                 $msg = "Account updated!";
@@ -79,7 +83,8 @@ class UserController extends BaseController
      * @param $id
      * @return void
      */
-    private function customValidate($data, $id = null) {
+    private function customValidate($data, $id = null)
+    {
         $rules = [
             "full_name" => ['required'],
             "username" => ['required', 'unique:users'],
@@ -104,7 +109,7 @@ class UserController extends BaseController
             'birth_day' => "Day of birth",
             "gender" => "Gender"
         ];
-        if($id == null) {
+        if ($id == null) {
             $rules["avatar"] = ["required"];
             $fields["avatar"] = "Avatar";
         }
@@ -126,16 +131,17 @@ class UserController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    function delete($id) {
+    function delete($id)
+    {
         $user = $this->userRepo->find($id);
-        if($user != null) {
-            if(Storage::disk('public')->exists('avatar/' . $user->avatar)) {
+        if ($user != null) {
+            if (Storage::disk('public')->exists('avatar/' . $user->avatar)) {
                 Storage::disk('public')->delete('avatar/' . $user->avatar);
             }
         }
         $result = $this->userRepo->delete($id);
         $redirect = redirect()->back();
-        if($result) {
+        if ($result) {
             return $redirect->with('success-msg', 'Account deleted!');
         }
         return $redirect->with('error-msg', self::ERROR_MSG);
@@ -149,7 +155,7 @@ class UserController extends BaseController
     function edit($id)
     {
         $user = $this->userRepo->find($id);
-        if($user == null) {
+        if ($user == null) {
             return redirect()->back()->with('error-msg', 'Account not found!');
         }
         return view('Admin.user.edit')->with('data', $user);

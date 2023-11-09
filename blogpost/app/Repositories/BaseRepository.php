@@ -5,6 +5,7 @@ namespace App\Repositories;
 abstract class BaseRepository implements RepositoryInterface
 {
     protected $model;
+
     public function __construct()
     {
         $this->setModel();
@@ -19,7 +20,8 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * Set model
      */
-    public function setModel() {
+    public function setModel()
+    {
         $this->model = app()->make($this->getModel());
     }
 
@@ -72,7 +74,7 @@ abstract class BaseRepository implements RepositoryInterface
     public function update($id, $attributes = [])
     {
         $result = $this->find($id);
-        if($result) {
+        if ($result) {
             $result->update($attributes);
             return $result;
         }
@@ -87,7 +89,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function updateOrCreate($attribute, $id = null)
     {
-        if($id == null) {
+        if ($id == null) {
             return $this->create($attribute);
         }
         return $this->update($id, $attribute);
@@ -101,7 +103,7 @@ abstract class BaseRepository implements RepositoryInterface
     public function delete($id)
     {
         $result = $this->find($id);
-        if($result) {
+        if ($result) {
             $result->delete();
             return true;
         }

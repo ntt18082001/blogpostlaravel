@@ -30,13 +30,11 @@
                                     class="ri-eye-fill align-middle"></i></button>
                         </div>
                     </div>
-
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" checked
                                id="auth-remember-check">
                         <label class="form-check-label" for="auth-remember-check">Remember me</label>
                     </div>
-
                     <div class="mt-4">
                         <button class="btn btn-success w-100" type="submit">Login</button>
                     </div>
@@ -47,6 +45,8 @@
     </div>
     <!-- end card -->
     <div class="mt-4 text-center">
-        <p class="mb-0">Don't have an account ? <a href="{{route('account.register')}}" class="fw-semibold text-primary text-decoration-underline"> Register </a> </p>
+        <p class="mb-0">Don't have an account? <a href="{{ route('account.register') }}"
+                                                  class="fw-semibold text-primary text-decoration-underline">Register</a>
+        </p>
     </div>
 </x-client.account-layout>

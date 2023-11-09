@@ -5,7 +5,8 @@
             Create category
         </a>
         <p>
-            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button"
+               aria-expanded="false" aria-controls="collapseExample">
                 <i class="mdi mdi-account-search"></i>
                 Search
             </a>
@@ -15,8 +16,7 @@
         $cateName = app('request')->input('cate_name');
         $show = isset($cateName) ? 'show' : '';
     @endphp
-    <div class="collapse {{$show}}" id="collapseExample">
-
+    <div class="collapse {{ $show }}" id="collapseExample">
         <div class="mb-4" id="Search">
             <div class="card mb-0">
                 <div class="card-header">
@@ -26,11 +26,13 @@
                     <form method="GET" action="{{ route('admin.category.index') }}">
                         <div class="row">
                             <div class="col-md-4">
-                                <x-input name="cate_name" label="Name" value={{$cateName}} />
+                                <x-input name="cate_name" label="Name" value={{ $cateName }} />
                             </div>
                             <div class="col-md-12 mt-3">
-                                <button id="btn-search" class="btn btn-primary ml-3 my-sm-0" type="submit">Search</button>
-                                <a href="{{route('admin.category.index')}}" class="btn btn-success ml-3 my-sm-0">Reset</a>
+                                <button id="btn-search" class="btn btn-primary ml-3 my-sm-0" type="submit">Search
+                                </button>
+                                <a href="{{ route('admin.category.index') }}"
+                                   class="btn btn-success ml-3 my-sm-0">Reset</a>
                             </div>
                         </div>
                     </form>
@@ -55,10 +57,12 @@
                     <td>{{ $item->cate_name }}</td>
                     <td>{{ $item->description }}</td>
                     <td class="fit">
-                        <a href="{{ route('admin.category.edit', ['id' => $item->id]) }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('admin.category.edit', ['id' => $item->id]) }}"
+                           class="btn btn-outline-secondary">
                             <i class="mdi mdi-account-edit"></i>
                         </a>
-                        <a href="{{ route('admin.category.delete', ['id' => $item->id]) }}" class="btn btn-outline-danger"
+                        <a href="{{ route('admin.category.delete', ['id' => $item->id]) }}"
+                           class="btn btn-outline-danger"
                            onclick="return confirm('Confirm delete category [{{ $item->description }}]?')">
                             <i class="mdi mdi-delete"></i>
                         </a>
@@ -68,7 +72,6 @@
             </tbody>
         </table>
     </div>
-
     <div>
         {{ $data->links() }}
     </div>

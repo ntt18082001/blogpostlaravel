@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Validator;
 class AccountController extends BaseController
 {
     protected $userRepo;
-    public function __construct(UserRepositoryInterface $userRepo) {
+
+    public function __construct(UserRepositoryInterface $userRepo)
+    {
         $this->userRepo = $userRepo;
     }
 
@@ -22,7 +24,7 @@ class AccountController extends BaseController
      */
     public function login()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return view('Admin.index');
         }
         return view("Admin.account.login");
@@ -71,11 +73,12 @@ class AccountController extends BaseController
      * Register page
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
      */
-    function register() {
-        if(!Auth::check()) {
+    function register()
+    {
+        if (!Auth::check()) {
             return view('register');
         }
-        if(Auth::user() && Auth::user()->role_id == 1) {
+        if (Auth::user() && Auth::user()->role_id == 1) {
             return redirect()->route('admin.home.index');
         }
         return redirect()->route('index');
@@ -86,7 +89,8 @@ class AccountController extends BaseController
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    function register_post(Request $request) {
+    function register_post(Request $request)
+    {
         $data = $request->all();
         $this->customValidate($data);
         try {
@@ -103,7 +107,8 @@ class AccountController extends BaseController
      * @param $data
      * @return void
      */
-    private function customValidate($data) {
+    private function customValidate($data)
+    {
         $rules = [
             "full_name" => ['required'],
             "username" => ['required', 'unique:users'],

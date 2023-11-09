@@ -3,8 +3,8 @@
         @csrf
         <div class="row">
             <div class="col-md-6">
-                <x-input name="cate_name" type="text" placeholder="" label="Name" required />
-                <x-textarea name="description" placeholder="Description" label="Description" required />
+                <x-input name="cate_name" type="text" placeholder="" label="Name" required/>
+                <x-textarea name="description" placeholder="Description" label="Description" required/>
             </div>
         </div>
         <div class="form-group mt-3">
