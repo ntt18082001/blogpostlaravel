@@ -52,8 +52,13 @@
         <div class="form-group mt-3">
             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>Lưu</button>
             <a href="{{ route('profile.index') }}" class="btn btn-secondary"><i class="fa fa-save"></i>Trở về</a>
+            <button class="btn btn-primary js-preview" type="button" data-bs-toggle="modal" data-bs-target="#modalPreviewPost">
+                <i class="mdi mdi-eye"></i>
+                Xem trước
+            </button>
         </div>
     </form>
+    @include('_modal_preview')
     <x-slot name="script">
         <!-- ckeditor -->
         <script src="{{ asset('assets/libs/quill/quill.min.js') }}"></script>

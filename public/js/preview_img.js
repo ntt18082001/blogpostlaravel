@@ -10,3 +10,9 @@ document.querySelector("#img_path").addEventListener("change", function (ev) {
         document.querySelector(".image-review").src = URL.createObjectURL(file);
     }
 });
+
+document.querySelector('.js-preview').addEventListener('click', function(ev) {
+    const modal = document.getElementById('modalPreviewPost');
+    modal.querySelector('.modal-title').textContent = ('(Preview) ') + document.getElementById('title').value;
+    modal.querySelector('.modal-body .container .content-blog').innerHTML = quill.root.innerHTML;
+});
