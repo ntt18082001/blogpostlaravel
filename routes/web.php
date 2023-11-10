@@ -55,6 +55,12 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         Route::get('/edit/{id}', "$controller@edit")->name('edit');
         Route::get('/publish/{id}', "$controller@publish")->name('publish');
     });
+
+    Route::prefix('/post_comment')->name('.post_comment.')->group(function () {
+        $controller = "PostCommentController";
+        Route::get('/index', "$controller@index")->name('index');
+        Route::get('/delete/{id}', "$controller@delete")->name("delete");
+    });
 });
 
 Route::get('/', "App\Http\Controllers\Client\HomeController@index")->name('index');

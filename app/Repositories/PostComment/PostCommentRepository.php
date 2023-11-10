@@ -56,4 +56,22 @@ class PostCommentRepository extends BaseRepository implements PostCommentInterfa
                               WHERE parent_id = ? AND id < ?", [$parentId, $id])->hasMore;
         return ['comments' => $data, 'has_more' => $hasMore];
     }
+
+    /**
+     * Search post comment
+     * @param $content
+     * @param $author_id
+     * @return mixed
+     */
+    public function searchPostComment($content, $author_id)
+    {
+        $query = $this->model->query()->select('id', 'content', 'author_id', 'post_id', 'parent_id', 'created_at')->orderByDesc('id');
+        if ($content) {
+            $query->where('content', 'like', "%$content%");
+        }
+        if ($author_id) {
+            $query->where('author_id', '=', $author_id);
+        }
+        return $query;
+    }
 }

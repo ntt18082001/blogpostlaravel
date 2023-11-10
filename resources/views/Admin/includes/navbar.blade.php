@@ -46,6 +46,11 @@
                         <i class="mdi mdi-newspaper"></i> <span data-key="t-widgets">Bài viết</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('admin.post_comment.index') }}">
+                        <i class="mdi mdi-comment"></i> <span data-key="t-widgets">Bình luận</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->
