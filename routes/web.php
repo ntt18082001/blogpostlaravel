@@ -60,6 +60,7 @@ Route::prefix("/admin")->middleware('admin')->namespace("App\Http\Controllers\Ad
         $controller = "PostCommentController";
         Route::get('/index', "$controller@index")->name('index');
         Route::get('/delete/{id}', "$controller@delete")->name("delete");
+        Route::get('/delete_multiple/{ids}', "$controller@deleteMultipleData")->name("deleteMultiple");
     });
 });
 

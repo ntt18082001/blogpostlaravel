@@ -33,29 +33,20 @@
             </div>
             <div class="d-flex align-items-center">
                 <div class="dropdown ms-sm-3 header-item topbar-user">
-                    @php
-                        $name = "";
-                        $avatar = "";
-                        if (auth()->check()) {
-                            $user = auth()->user();
-                            $name = $user->full_name;
-                            $avatar = $user->avatar;
-                        }
-                    @endphp
                     <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<span class="d-flex align-items-center">
-                            @if (isset($avatar))
+                            @if (isset(auth()->user()->avatar))
                                 <img class="rounded-circle header-profile-user"
-                                     src="/storage/avatar/{{ $avatar }}" alt="Header Avatar">
+                                     src="/storage/avatar/{{ auth()->user()->avatar }}" alt="Header Avatar">
                             @else
                                 <img class="rounded-circle header-profile-user"
                                      src="{{ asset('assets/images/users/user-dummy-img.jpg') }}" alt="Header Avatar">
                             @endif
 							<span class="text-start ms-xl-2">
 								<span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-                                    @if (isset($name))
-                                        {{ $name }}
+                                    @if (isset(auth()->user()->full_name))
+                                        {{ auth()->user()->full_name }}
                                     @endif
 								</span>
 							</span>
@@ -65,8 +56,8 @@
                         <!-- item-->
                         <h6 class="dropdown-header">
                             Welcome
-                            @if (isset($name))
-                                {{ $name }}!
+                            @if (isset(auth()->user()->full_name))
+                                {{ auth()->user()->full_name }}!
                             @endif
                         </h6>
                         <a class="dropdown-item" href="{{ route('account.logout') }}">

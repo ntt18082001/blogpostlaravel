@@ -109,4 +109,15 @@ abstract class BaseRepository implements RepositoryInterface
         }
         return false;
     }
+
+    /**
+     * Delete multiple data
+     * @param $ids
+     * @return mixed
+     */
+    public function deleteMultiple($ids)
+    {
+        $deletedRows = $this->model->whereIn('id', $ids)->delete();
+        return $deletedRows;
+    }
 }

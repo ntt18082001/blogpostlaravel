@@ -43,10 +43,22 @@
             </div>
         </div>
     </div>
+    <div class="d-flex align-items-center mb-3">
+        <div class="form-check form-switch me-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchDeleteMultipleData">
+            <label class="form-check-label" for="switchDeleteMultipleData"><strong>Bật xóa nhiều</strong></label>
+        </div>
+        <button class="btn btn-danger js-delete-multiple d-none" type="button">Xóa (<span id="delCount">0</span>) dữ liệu</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th class="checkbox-container d-none">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="js-check-all">
+                    </div>
+                </th>
                 <th scope="col">#</th>
                 <th scope="col">Nội dung</th>
                 <th scope="col">Tác giả</th>
@@ -59,6 +71,11 @@
             @foreach ($data as $item)
                 @if (isset($item->post))
                     <tr>
+                        <td class="fit checkbox-container d-none">
+                            <div class="form-check">
+                                <input class="form-check-input js-check-element" type="checkbox" value="{{ $item->id }}">
+                            </div>
+                        </td>
                         <td class="fit">{{ $item->id }}</td>
                         <td>{{ $item->content }}</td>
                         <td class="fit"><h5><span
@@ -87,4 +104,7 @@
     <div>
         {{ $data->links() }}
     </div>
+    <x-slot name="script">
+        <script src="{{ asset('js/delete_multiple_data.js') }}"></script>
+    </x-slot>
 </x-admin.admin-layout>

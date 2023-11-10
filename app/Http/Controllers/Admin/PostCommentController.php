@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Repositories\PostComment\PostCommentInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class PostCommentController extends BaseController
@@ -34,7 +35,7 @@ class PostCommentController extends BaseController
     }
 
     /**
-     * Find post by $id to delete
+     * Find post comment by $id to delete
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -46,5 +47,22 @@ class PostCommentController extends BaseController
             return $redirect->with('success-msg', 'Xóa bình luận thành công!');
         }
         return $redirect->with('error-msg', self::ERROR_MSG);
+    }
+
+    /**
+     * Delete multiple comment
+     * @param $ids
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    function deleteMultipleData($ids) {
+        try {
+            $arrId = explode(',', $ids);
+            $result = $this->postCommentRepo->deleteMultiple($arrId);
+            $redirect = redirect()->back();
+            return $redirect->with('success-msg', "Đã xóa [$result] bình luận thành công!");
+        } catch (\ErrorException $exception) {
+            Log::error($exception->getMessage());
+            return $redirect->with('error-msg', self::ERROR_MSG);
+        }
     }
 }
