@@ -8,4 +8,5 @@ interface PostCommentInterface extends RepositoryInterface
 {
     public function getCommentsByPostId($id);
     public function countComment();
+    public function loadMoreComment($id, $parentId, $postId);
 }

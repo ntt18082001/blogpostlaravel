@@ -10,7 +10,7 @@
                     <a href="{{ route('client.post.detail', ['id' => $item->id]) }}">
                         <h5 class="card-title">{{ $item->title }}</h5>
                     </a>
-                    <p class="card-text">{{ $item->summary }}</p>
+                    <p class="card-text hidden-text">{{ $item->summary }}</p>
                 </div>
             </div>
         </div>

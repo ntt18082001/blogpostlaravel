@@ -72,4 +72,5 @@ Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\
     Route::get('/all_post', "PostController@allPost")->name('all_post');
     Route::post('/comment', "PostController@comment")->name('comment');
     Route::get('/edit/{id}', "PostController@edit")->name('editpost');
+    Route::get('/load_more_comment/{id}_{parentId}_{postId}', "PostController@loadMoreComment")->name('loadMoreComment');
 });

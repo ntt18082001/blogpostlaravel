@@ -27,8 +27,8 @@
                     $name = "";
                     $avatar = "";
                     $role = 0;
-                    if(\Illuminate\Support\Facades\Auth::check()) {
-                        $user = \Illuminate\Support\Facades\Auth::user();
+                    if (auth()->check()) {
+                        $user = auth()->user();
                         $name = $user->full_name;
                         $avatar = $user->avatar;
                         $role = $user->role_id;
