@@ -23,24 +23,13 @@
                 </li>
             </ul>
             <div class="dropdown ms-sm-3 header-item topbar-user bg-white">
-                @php
-                    $name = "";
-                    $avatar = "";
-                    $role = 0;
-                    if(\Illuminate\Support\Facades\Auth::check()) {
-                        $user = \Illuminate\Support\Facades\Auth::user();
-                        $name = $user->full_name;
-                        $avatar = $user->avatar;
-                        $role = $user->role_id;
-                    }
-                @endphp
-                @if (Auth::check())
+                @if (auth()->check())
                     <button type="button" class="btn shadow-none" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
-                                    @if (isset($avatar))
+                                    @if (isset(auth()->user()->avatar))
                                         <img class="rounded-circle header-profile-user"
-                                             src="/storage/avatar/{{ $avatar }}" alt="Header Avatar">
+                                             src="/storage/avatar/{{ auth()->user()->avatar }}" alt="Header Avatar">
                                     @else
                                         <img class="rounded-circle header-profile-user"
                                              src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
@@ -48,8 +37,8 @@
                                     @endif
                                     <span class="text-start ms-xl-2">
                                         <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-                                            @if (isset($name))
-                                                {{$name}}
+                                            @if (isset(auth()->user()->full_name))
+                                                {{ auth()->user()->full_name }}
                                             @endif
                                         </span>
                                     </span>
@@ -58,11 +47,11 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome
-                            @if (isset($name))
-                                {{ $name }}!
+                            @if (isset(auth()->user()->full_name))
+                                {{ auth()->user()->full_name }}!
                             @endif
                         </h6>
-                        @if ($role == 1)
+                        @if (auth()->user()->role_id == 1)
                             <a class="dropdown-item" target="_blank" href="{{ route('admin.home.index') }}">
                                 <i class="mdi mdi-key text-muted fs-16 align-middle me-1"></i><span>Quản lý</span>
                             </a>

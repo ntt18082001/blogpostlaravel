@@ -30,6 +30,7 @@ interface RepositoryInterface
      */
     public function create($attributes = []);
 
+
     /**
      * Update
      * @param $id
@@ -37,6 +38,7 @@ interface RepositoryInterface
      * @return mixed
      */
     public function update($id, $attributes = []);
+
     /**
      * Update or create
      * @param array $attribute
@@ -44,10 +46,18 @@ interface RepositoryInterface
      * @return mixed
      */
     public function updateOrCreate($attribute, $id = null);
+
     /**
      * Delete
      * @param $id
      * @return mixed
      */
     public function delete($id);
+
+    /**
+     * Delete multiple data
+     * @param $ids
+     * @return mixed
+     */
+    public function deleteMultiple($ids);
 }

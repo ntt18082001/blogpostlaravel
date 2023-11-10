@@ -161,4 +161,16 @@ class PostController extends BaseController
         }
         return view('client.post.edit')->with('data', $data);
     }
+
+    /**
+     * Function load more comment
+     * @param $id
+     * @param $parentId
+     * @param $postId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function loadMoreComment($id, $parentId, $postId) {
+        $data = $this->postCommentRepo->loadMoreComment($id, $parentId, $postId);
+        return response()->json(['data' => $data]);
+    }
 }
