@@ -59,8 +59,9 @@
 <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
 <script src="{{ asset('assets/js/plugins.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
-{{ $script ?? '' }}
 <!-- App js -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{{ $script ?? '' }}
 </body>
 </html>

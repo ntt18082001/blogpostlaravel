@@ -81,3 +81,7 @@ Route::prefix('/profile')->name('profile.')->middleware('auth')->namespace("App\
     Route::get('/edit/{id}', "PostController@edit")->name('editpost');
     Route::get('/load_more_comment/{id}_{parentId}_{postId}', "PostController@loadMoreComment")->name('loadMoreComment');
 });
+
+Route::get('/{pathMatch}', function() {
+    return view('welcome');
+})->where('pathMatch', ".*");

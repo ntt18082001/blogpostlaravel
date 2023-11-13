@@ -14,4 +14,5 @@ interface PostRepositoryInterface extends RepositoryInterface
     public function countPostByAuthorId($id);
     public function countPostPublishedByAuthorId($id);
     public function countPostUnpublishByAuthorId($id);
+    public function findWithAuthor($id);
 }

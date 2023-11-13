@@ -99,4 +99,16 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     {
         return $this->model->where('status', false)->where('author_id', '=', $id)->count();
     }
+
+    /**
+     * Find post by id have author
+     * @param $id
+     * @return mixed
+     */
+    public function findWithAuthor($id)
+    {
+        return $this->model->with(['author' => function ($query) {
+            $query->select('id', 'full_name', 'avatar');
+        }])->find($id);
+    }
 }

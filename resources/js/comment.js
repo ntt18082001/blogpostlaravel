@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                                         </button>
                                                         <span>${formatDateTime(resData.comment.created_at)}</span>
                                                         <div class="replyContainer"></div>
-                                                        <div class="replyCommentContainer${resData.comment.id}${resData.comment.post_id}"></div>
                                                     </div>
                                                 </div>`;
                 document.querySelector('.comment-container').insertAdjacentHTML('afterbegin', templateComment);

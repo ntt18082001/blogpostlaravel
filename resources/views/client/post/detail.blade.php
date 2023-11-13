@@ -94,7 +94,6 @@
         </div>
     </div>
     <x-slot name="script">
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="{{ asset('js/comment.js') }}"></script>
     </x-slot>
 </x-client.client-layout>
