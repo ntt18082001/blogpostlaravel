@@ -1,16 +1,17 @@
 <script setup>
-    import "../../comment.js";
     import { onMounted, ref } from "vue";
     import { useRoute } from "vue-router";
     import DateTimeFormat from "../DateTimeFormat.vue";
+    import FormComment from './FormComment.vue';
     import {Bootstrap5Pagination} from "laravel-vue-pagination";
 
     let post = ref({});
     let comments = ref({});
+    let user = ref({});
     const route = useRoute();
 
     onMounted(async () => {
-        getPost();
+        await getPost();
     });
 
     const getPost = async (page = 1) => {
@@ -19,6 +20,10 @@
         post.value = res.data.post;
         comments.value = res.data.comments;
     };
+
+    const addComment = (comment) => {
+        comments.value.data.unshift(comment);
+    }
 </script>
 
 <template>
@@ -29,17 +34,7 @@
             <div class="content-blog" v-html="post.content">
             </div>
             <div class="mt-3">
-                <h4>Bình luận</h4>
-                <form class="mt-3 form-comment" method="post">
-                    <input type="hidden" name="post_id" :value="post.id">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" required name="content" placeholder="abc..."
-                               aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary js-submit" type="submit" id="button-addon2">
-                            Gửi
-                        </button>
-                    </div>
-                </form>
+                <FormComment :post_id="post.id" :add-comment="addComment" />
                 <div class="mt-3 comment-container">
                     <div class="d-flex gap-2 mt-2" v-for="item in comments.data" v-if="comments.data && comments.data.length > 0">
                         <img class="rounded-circle header-profile-user"

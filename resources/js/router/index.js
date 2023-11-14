@@ -1,15 +1,15 @@
 import {createRouter, createWebHistory} from "vue-router";
 
-import Test from '../components/test/index.vue';
+import Index from '../components/post/index.vue';
 
-import PostDetail from '../components/test/detail.vue';
+import PostDetail from '../components/post/detail.vue';
 
 import NotFound from "../components/NotFound.vue";
 
 const routes = [
     {
-        path: '/test-vue',
-        component: Test
+        path: '/vue',
+        component: Index
     },
     {
         path: '/post/:id',
