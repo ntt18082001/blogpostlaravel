@@ -1,21 +1,22 @@
 <script setup>
-    import { onMounted, ref } from "vue";
+import {onMounted, ref, watch} from "vue";
     import { useRoute } from "vue-router";
     import DateTimeFormat from "../DateTimeFormat.vue";
     import FormComment from './FormComment.vue';
     import {Bootstrap5Pagination} from "laravel-vue-pagination";
+    import RelatedPost from "./RelatedPost.vue";
 
     let post = ref({});
     let comments = ref({});
     let user = ref({});
     const route = useRoute();
+    const postId = route.params.id;
 
     onMounted(async () => {
         await getPost();
     });
 
     const getPost = async (page = 1) => {
-        const postId = route.params.id; // Lấy ID bài viết từ tham số route
         let res = await axios.get(`/api/get_detail_post/${postId}?page=${page}`);
         post.value = res.data.post;
         comments.value = res.data.comments;
@@ -23,6 +24,10 @@
 
     const addComment = (comment) => {
         comments.value.data.unshift(comment);
+    }
+
+    const replyButton = () => {
+
     }
 </script>
 
@@ -77,6 +82,7 @@
                             </button>
                         </div>
                     </div>
+                    <p v-else>Chưa có bình luận</p>
                     <div class="mt-3">
                         <Bootstrap5Pagination
                             :data="comments"
@@ -87,7 +93,7 @@
             </div>
         </div>
         <div class="col-md-4">
-<!--            <x-client.related-post id="{{ post.id }}"/>-->
+            <RelatedPost :post_id="postId" />
         </div>
     </div>
 </template>

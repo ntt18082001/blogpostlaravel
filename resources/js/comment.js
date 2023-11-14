@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                                        aria-describedby="button-addon2">
                                                 <button class="btn btn-outline-secondary js-submit" type="submit"
                                                         id="button-addon2">
-                                                    Comment
+                                                    Gửi
                                                 </button>
                                             </div>
                                         </form>`;

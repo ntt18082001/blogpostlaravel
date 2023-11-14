@@ -21,7 +21,7 @@ class TestApiController extends Controller
      * Get all post
      * @return \Illuminate\Http\JsonResponse
      */
-    public function get_all_post() {
+    public function getAllPost() {
         $result = $this->postRepo
             ->getAllWith(['id', 'title', 'cover_path', 'status', 'summary', 'category_id', 'author_id', 'created_at'])
             ->where('status', true)
@@ -37,7 +37,7 @@ class TestApiController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function get_detail_post($id) {
+    public function getDetailPost($id) {
         $data = $this->postRepo->findWithAuthor($id);
         if ($data == null) {
             return response()->json(['post' => null], 200);
@@ -75,6 +75,16 @@ class TestApiController extends Controller
      */
     function loadMoreComment($id, $parentId, $postId) {
         $data = $this->postCommentRepo->loadMoreComment($id, $parentId, $postId);
+        return response()->json(['data' => $data]);
+    }
+
+    /**
+     * Get 5 related post
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function relatedPost($id) {
+        $data = $this->postRepo->getRelatedPosts($id);
         return response()->json(['data' => $data]);
     }
 }
