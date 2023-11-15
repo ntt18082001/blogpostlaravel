@@ -1,24 +1,7 @@
-<script setup>
-    import { onMounted, ref } from "vue";
-
-    const props = defineProps(['post_id']);
-
-    const relatedPosts = ref({});
-
-    onMounted(async () => {
-        await getRelatedPost();
-    });
-
-    const getRelatedPost = async () => {
-        const res = await axios.get(`/api/get_related_post/${props.post_id}`);
-        relatedPosts.value = res.data;
-    }
-</script>
-
 <template>
     <div class="row">
         <h4>Bài viết liên quan</h4>
-        <div class="col-md-12 col-sm-6" v-for="item in relatedPosts.data">
+        <div class="col-md-12 col-sm-6" v-for="item in relatedPosts.value">
             <div class="card" style="width: 18rem;">
                 <router-link :to="{ name: 'post-detail', params: { id: item.id }}">
                     <img :src="'/storage/post/' + item.cover_path" class="card-img-top" alt="...">
@@ -34,3 +17,40 @@
     </div>
 
 </template>
+
+<script>
+import {ref} from "vue";
+import {useRoute} from "vue-router";
+
+export default {
+    name: 'RelatedPost',
+    props: {
+        postId: {
+            type: String
+        }
+    },
+    setup() {
+        const relatedPosts = ref({});
+        return {
+            relatedPosts
+        }
+    },
+    created() {
+        this.$watch(
+            () => this.postId,
+            async () => {
+                await this.getRelatedPost();
+            }
+        )
+    },
+    methods: {
+        async getRelatedPost() {
+            const res = await axios.get(`/api/get_related_post/${this.postId}`);
+            this.relatedPosts.value = res.data.data;
+        }
+    },
+    async mounted() {
+        await this.getRelatedPost();
+    }
+}
+</script>

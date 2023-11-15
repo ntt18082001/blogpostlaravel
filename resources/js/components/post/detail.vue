@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-md-4" >
-            <RelatedPost :post_id="postId"/>
+            <RelatedPost :post-id="postId"/>
         </div>
     </div>
 </template>
@@ -43,17 +43,27 @@
     export default {
         name: 'PostDetail',
         setup() {
-            const route = useRoute();
             const post = ref({});
             const comments = ref({});
             const user = ref({});
-            const postId = route.params.id;
+            const postId = '';
             return {
                 post,
                 comments,
                 user,
                 postId,
             }
+        },
+        created() {
+            const route = useRoute();
+            this.postId = route.params.id;
+            this.$watch(
+                () => route.params,
+                async () => {
+                    this.postId = route.params.id;
+                    await this.getPost();
+                }
+            )
         },
         mixins: [formatDateTimeMixin],
         components: {
@@ -74,6 +84,6 @@
         },
         async mounted() {
             await this.getPost();
-        }
+        },
     }
 </script>
