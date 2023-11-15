@@ -6,7 +6,7 @@
     let posts = ref({});
 
     onMounted(async () => {
-        getPosts()
+        getPosts();
     });
 
     const getPosts = async (page = 1) => {
