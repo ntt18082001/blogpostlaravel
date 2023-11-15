@@ -24,7 +24,7 @@
                             <button class="d-inline-block btn js-reply" @click="toggleReplyForm(item.id, post.value.id)">
                                 Trả lời
                             </button>
-                            <span><DateTimeFormat :time="item.created_at"/></span>
+                            <span>{{ formattedTime(item.created_at) }}</span>
                             <div class="replyContainer"
                                  v-if="toggleReplyFormData.showReplyForm && toggleReplyFormData.selectedItem === item.id">
                                 <form class="mt-3 form-reply"
@@ -55,11 +55,11 @@
                                          :src="'/assets/images/users/user-dummy-img.jpg'"
                                          alt="Header Avatar" v-else>
                                     <div class="w-100">
-                                        <p class="my-auto mx-0">
+                                        <p class="my-auto mx-0 mb-1">
                                             <strong v-if="child.author">{{ child.author.full_name }}: </strong>
                                             <span>{{ child.content }}</span>
                                         </p>
-                                        <span><DateTimeFormat :time="child.created_at"/></span>
+                                        <span>{{ formattedTime(child.created_at) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -89,10 +89,10 @@
 <script>
     import {ref} from "vue";
     import RelatedPost from './RelatedPost.vue';
-    import DateTimeFormat from '../DateTimeFormat.vue';
     import FormComment from './FormComment.vue';
     import {useRoute} from "vue-router";
     import {Bootstrap5Pagination} from 'laravel-vue-pagination';
+    import {formatDateTimeMixin} from "../../helpers/index.js";
 
     export default {
         name: 'PostDetail',
@@ -116,9 +116,9 @@
                 toggleReplyFormData
             }
         },
+        mixins: [formatDateTimeMixin],
         components: {
             RelatedPost,
-            DateTimeFormat,
             FormComment,
             Bootstrap5Pagination
         },
@@ -156,7 +156,6 @@
                     });
             },
             async loadMoreComment(lastCommentId, parentId, postId) {
-                console.log(lastCommentId, parentId, postId);
                 const data = await axios.get(`/api/get_more_comment/${lastCommentId}_${parentId}_${postId}`)
                     .then(function (response) {
                         return response.data.data;
@@ -165,7 +164,6 @@
                 const parentIndex = this.comments.value.data.findIndex(x => x.id === parentId);
                 this.comments.value.data[parentIndex].comment_childs.push(...data.comments);
                 this.comments.value.data[parentIndex].has_child = data.has_more;
-                console.log(this.comments.value);
             }
         },
         async mounted() {
