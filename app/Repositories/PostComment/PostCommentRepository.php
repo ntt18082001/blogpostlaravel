@@ -58,6 +58,7 @@ class PostCommentRepository extends BaseRepository implements PostCommentInterfa
             ->with(['author' => function ($query) {
                 $query->select('id', 'avatar', 'full_name');
             }])
+            ->orderByDesc('id')
             ->take(5)
             ->get();
         $hasMore = DB::selectOne("SELECT COUNT(*) > 5 AS hasMore

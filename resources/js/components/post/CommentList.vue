@@ -42,11 +42,11 @@ export default {
             this.comments.data[parentIndex].comment_childs.unshift(comment);
         },
         async loadMoreComment(lastCommentId, parentId, postId) {
+            console.log(lastCommentId, parentId, postId);
             const data = await axios.get(`/api/get_more_comment/${lastCommentId}_${parentId}_${postId}`)
                 .then(function (response) {
                     return response.data.data;
                 });
-            data.comments.reverse();
             const parentIndex = this.comments.data.findIndex(x => x.id === parentId);
             this.comments.data[parentIndex].comment_childs.push(...data.comments);
             this.comments.data[parentIndex].has_child = data.has_more;
