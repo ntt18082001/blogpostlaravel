@@ -9,7 +9,8 @@ import NotFound from "../components/NotFound.vue";
 const routes = [
     {
         path: '/vue',
-        component: Index
+        component: Index,
+        name: 'index'
     },
     {
         path: '/post/:id',
