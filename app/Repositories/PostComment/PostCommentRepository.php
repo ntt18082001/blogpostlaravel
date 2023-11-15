@@ -52,13 +52,14 @@ class PostCommentRepository extends BaseRepository implements PostCommentInterfa
     public function loadMoreComment($id, $parentId, $postId)
     {
         $data = $this->model->select('id', 'content', 'author_id', 'post_id', 'parent_id', 'created_at')
-            ->where('post_id', '=', $postId)->where('parent_id', '=', $parentId)
+            ->where('post_id', '=', $postId)
+            ->where('parent_id', '=', $parentId)
             ->where('id', '<', $id)
             ->with(['author' => function ($query) {
                 $query->select('id', 'avatar', 'full_name');
             }])
-            ->orderByDesc('id')
-            ->take(5)->get();
+            ->take(5)
+            ->get();
         $hasMore = DB::selectOne("SELECT COUNT(*) > 5 AS hasMore
                               FROM post_comments
                               WHERE parent_id = ? AND id < ?", [$parentId, $id])->hasMore;
