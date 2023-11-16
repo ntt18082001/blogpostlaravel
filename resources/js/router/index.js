@@ -4,6 +4,8 @@ import Index from '../components/post/index.vue';
 
 import PostDetail from '../components/post/detail.vue';
 
+import ProfileIndex from '../components/profile/Index.vue';
+
 import NotFound from "../components/NotFound.vue";
 
 const routes = [
@@ -16,6 +18,11 @@ const routes = [
         path: '/post/:id',
         component: PostDetail,
         name: 'post-detail'
+    },
+    {
+        path: '/profile',
+        component: ProfileIndex,
+        name: 'profile'
     },
     {
         path: '/:pathMatch(.*)*',

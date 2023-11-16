@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\Post\PostRepositoryInterface;
 use App\Repositories\PostComment\PostCommentInterface;
 use Illuminate\Http\Request;
