@@ -1,6 +1,6 @@
 <template>
     <div class="col-xxl-6" v-for="item in posts.data" :key="item.id">
-        <post-list-item :post="item" />
+        <post-list-item :post="item" :is-edit="isEdit" />
     </div><!-- end col -->
 </template>
 
@@ -13,6 +13,9 @@ export default {
     props: {
         posts: {
             type: Object
+        },
+        isEdit: {
+            type: Boolean
         }
     }
 }

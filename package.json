@@ -13,6 +13,7 @@
     "dependencies": {
         "@vee-validate/rules": "^4.11.8",
         "@vitejs/plugin-vue": "^4.4.1",
+        "@vueup/vue-quill": "^1.2.0",
         "laravel-vue-pagination": "^4.1.1",
         "moment": "^2.29.4",
         "vee-validate": "^4.11.8",

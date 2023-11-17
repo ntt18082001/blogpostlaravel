@@ -6,6 +6,10 @@ import PostDetail from '../components/post/detail.vue';
 
 import ProfileIndex from '../components/profile/Index.vue';
 
+import CreatePost from "../components/post/CreatePost.vue";
+
+import AllMyPost from "../components/post/AllMyPost.vue";
+
 import NotFound from "../components/NotFound.vue";
 
 const routes = [
@@ -18,6 +22,16 @@ const routes = [
         path: '/post/:id',
         component: PostDetail,
         name: 'post-detail'
+    },
+    {
+        path: '/post/create',
+        component: CreatePost,
+        name: 'post-create'
+    },
+    {
+        path: '/post/allMyPost',
+        component: AllMyPost,
+        name: 'all-my-post'
     },
     {
         path: '/profile',

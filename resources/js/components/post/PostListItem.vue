@@ -18,6 +18,8 @@
                     <p class="card-text text-author"><small
                         class="text-muted">{{ post.author.full_name }}
                         | {{ formattedTime(post.created_at) }}</small></p>
+                    <a href="#" v-if="isEdit"
+                       class="btn btn-sm btn-outline-dark btn-left">Sửa</a>
                 </div>
             </div>
         </div>
@@ -33,6 +35,9 @@ export default {
     props: {
         post: {
             type: Object
+        },
+        isEdit: {
+            type: Boolean
         }
     }
 }

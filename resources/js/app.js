@@ -8,4 +8,6 @@ import App from './app.vue';
 
 import router from "./router/index.js";
 
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 createApp(App).use(router).mount("#app");

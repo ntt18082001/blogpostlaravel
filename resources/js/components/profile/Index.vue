@@ -3,13 +3,13 @@
         Trở về
     </router-link>
     <form-profile :profile="userInfo.value" :set-user-info="setUserInfo" />
-    <a href="#" class="btn btn-primary mb-3 me-3">
+    <router-link :to="{ name: 'post-create' }" class="btn btn-primary mb-3">
         <i class="mdi mdi-account-plus"></i>
         Thêm bài viết
-    </a>
+    </router-link>
     <div class="row">
         <div class="col-md-6">
-            <a href="#">
+            <router-link :to="{ name: 'all-my-post' }">
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -32,7 +32,7 @@
                         </div>
                     </div><!-- end card body -->
                 </div> <!-- end card-->
-            </a>
+            </router-link>
         </div> <!-- end col-->
     </div>
 </template>
