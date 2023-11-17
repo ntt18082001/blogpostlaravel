@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" v-if="post">
         <div class="row g-0">
             <div class="col-md-4">
                 <router-link :to="{ name: 'post-detail', params: { id: post.id }}">
@@ -18,8 +18,8 @@
                     <p class="card-text text-author"><small
                         class="text-muted">{{ post.author.full_name }}
                         | {{ formattedTime(post.created_at) }}</small></p>
-                    <a href="#" v-if="isEdit"
-                       class="btn btn-sm btn-outline-dark btn-left">Sửa</a>
+                    <router-link :to="{ name: 'post-edit', params: { id: post.id }}" v-if="isEdit"
+                       class="btn btn-sm btn-outline-dark btn-left">Sửa</router-link>
                 </div>
             </div>
         </div>

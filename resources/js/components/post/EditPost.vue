@@ -1,9 +1,9 @@
 <template>
-    <form enctype="multipart/form-data" @submit.prevent="handleSubmit">
-        <h2 class="mb-3">Thêm bài viết</h2>
+    <form enctype="multipart/form-data" @submit.prevent="handleSubmit" v-if="post.value">
+        <h2 class="mb-3">Sửa bài viết</h2>
         <div class="mb-3">
             <label for="title" class="form-label required">Tiêu đề</label>
-            <input type="text" class="form-control" name="title" id="title" required>
+            <input type="text" class="form-control" name="title" id="title" required :value="post.value.title">
         </div>
         <div class="form-group group-container mb-3 mt-3">
             <label class="control-label required">Ảnh bìa</label>
@@ -12,12 +12,13 @@
                 <input type="button"  @click="handleChooseFile" class="btn btn-choose-file w-100 h-100 position-absolute">
                 <div class="selectedImages w-100 height-img-cover">
                     <img v-if="selectedFileUrl" class="image-review" :src="selectedFileUrl"/>
+                    <img v-else class="image-review" :src="'/storage/post/' + post.value.cover_path" />
                 </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="summary" class="form-label required">Tóm tắt</label>
-            <textarea class="form-control" id="summary" name="summary" required rows="3"></textarea>
+            <textarea class="form-control" id="summary" name="summary" required rows="3">{{post.value.summary}}</textarea>
         </div>
         <div class="card">
             <div class="card-header">
@@ -32,25 +33,30 @@
                 <label for="category_id" class="form-label required">Thể loại</label>
                 <select class="form-select" name="category_id" id="category_id" required>
                     <option value="">Chọn thể loại</option>
-                    <option v-for="cate in categories" :value="cate.id">{{cate.cate_name}}</option>
+                    <option v-for="cate in categories" :value="cate.id" :selected="cate.id === post.value.category_id">
+                        {{cate.cate_name}}
+                    </option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success me-2"><i class="fa fa-save"></i>Lưu</button>
-            <router-link :to="{ name: 'profile' }" class="btn btn-secondary"><i class="fa fa-save"></i>Trở về</router-link>
+            <router-link :to="{ name: 'all-my-post' }" class="btn btn-secondary"><i class="fa fa-save"></i>Trở về</router-link>
         </div>
     </form>
 </template>
 
 <script>
+import {useRoute, useRouter} from "vue-router";
+import {ref} from "vue";
 import {QuillEditor} from "@vueup/vue-quill";
-import { toast } from 'vue3-toastify';
-import {useRouter} from "vue-router";
+import {toast} from "vue3-toastify";
 
 export default {
-    name: 'CreatePost',
+    name: 'EditPost',
     data() {
+        const post = ref({});
+        const postId = '';
         return {
             quillOptions: {
                 modules: {
@@ -73,10 +79,12 @@ export default {
                 },
                 theme: 'snow',  // You can change the theme if needed
             },
+            postId,
+            post,
             content: '',
-            categories: [],
             fileInput: null,
             selectedFileUrl: null,
+            categories: [],
         }
     },
     setup() {
@@ -89,12 +97,21 @@ export default {
     components: {
         QuillEditor
     },
+    created() {
+        const route = useRoute();
+        this.postId = route.params.id;
+    },
     methods: {
         async getCategory() {
             await axios.get('/api/get_all_category')
                 .then(res => {
                     this.categories = res.data;
                 });
+        },
+        async getPost() {
+            let res = await axios.get(`/api/get_post_edit/${this.postId}`);
+            this.post.value = res.data.post;
+            this.content = res.data.post.content;
         },
         handleChooseFile() {
             this.$refs.fileRef.click();
@@ -107,12 +124,6 @@ export default {
             }
         },
         async handleSubmit() {
-            if(!this.fileInput) {
-                toast.warning("Bạn chưa chọn ảnh bìa!",{
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
-                return;
-            }
             if(!this.content || this.content === '<p><br></p>') {
                 toast.warning("Bạn chưa thêm nội dung!",{
                     position: toast.POSITION.BOTTOM_RIGHT
@@ -122,7 +133,7 @@ export default {
 
             const data = new FormData(this.$el);
             data.append('content', this.content);
-            await axios.post('/api/save_post', data)
+            await axios.post(`/api/save_post/${this.postId}`, data)
                 .then(res => {
                     if(res.data.successMsg) {
                         toast.success(res.successMsg,{
@@ -145,6 +156,7 @@ export default {
         }
     },
     async mounted() {
+        await this.getPost();
         await this.getCategory();
     }
 }

@@ -8,6 +8,8 @@ import ProfileIndex from '../components/profile/Index.vue';
 
 import CreatePost from "../components/post/CreatePost.vue";
 
+import EditPost from "../components/post/EditPost.vue";
+
 import AllMyPost from "../components/post/AllMyPost.vue";
 
 import NotFound from "../components/NotFound.vue";
@@ -27,6 +29,11 @@ const routes = [
         path: '/post/create',
         component: CreatePost,
         name: 'post-create'
+    },
+    {
+        path: '/post/edit/:id',
+        component: EditPost,
+        name: 'post-edit'
     },
     {
         path: '/post/allMyPost',

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xxl-6" v-for="item in posts.data" :key="item.id">
+    <div v-if="posts" class="col-xxl-6" v-for="item in posts.data" :key="item.id">
         <post-list-item :post="item" :is-edit="isEdit" />
     </div><!-- end col -->
 </template>

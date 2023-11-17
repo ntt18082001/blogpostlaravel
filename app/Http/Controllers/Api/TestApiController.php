@@ -134,4 +134,35 @@ class TestApiController extends BaseController
         $data = $this->cateRepo->getAllWith(['id', 'cate_name'])->get();
         return response()->json($data);
     }
+
+    /**
+     * Get aLL post user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function allMyPost()
+    {
+        $id = Auth::id();
+        $result = $this->postRepo
+            ->getAllWith(['id', 'title', 'cover_path', 'status', 'summary', 'category_id', 'author_id', 'created_at'])
+            ->where('author_id', '=', $id)
+            ->with(['author' => function ($query) {
+                $query->select('id', 'full_name');
+            }])
+            ->paginate(15);
+        return response()->json(['data' => $result]);
+    }
+
+    /**
+     * Find post by $id to edit for user
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function getPostEdit($id)
+    {
+        $data = $this->postRepo->find($id);
+        if ($data == null) {
+            return response()->json(['errorMsg' => self::ERROR_MSG], 500);
+        }
+        return response()->json(['post' => $data], 200);
+    }
 }
